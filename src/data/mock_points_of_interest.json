@@ -1,0 +1,500 @@
+{
+  "points_of_interest": [
+    {
+      "location": "Istanbul",
+      "name": "Hagia Sophia",
+      "category": "historical",
+      "description": "Iconic Byzantine cathedral turned mosque, now a museum showcasing centuries of history",
+      "rating": 4.8,
+      "distance_from_center_km": 0.5
+    },
+    {
+      "location": "Istanbul",
+      "name": "Blue Mosque",
+      "category": "architectural",
+      "description": "Stunning 17th-century mosque with six minarets and beautiful blue tile work",
+      "rating": 4.7,
+      "distance_from_center_km": 0.3
+    },
+    {
+      "location": "Istanbul",
+      "name": "Grand Bazaar",
+      "category": "cultural",
+      "description": "One of the world's oldest and largest covered markets with over 4,000 shops",
+      "rating": 4.5,
+      "distance_from_center_km": 0.8
+    },
+    {
+      "location": "Istanbul",
+      "name": "Bosphorus Strait",
+      "category": "scenic",
+      "description": "Stunning waterway separating Europe and Asia, perfect for scenic cycling routes",
+      "rating": 4.9,
+      "distance_from_center_km": 1.2
+    },
+    {
+      "location": "Istanbul",
+      "name": "Topkapi Palace",
+      "category": "historical",
+      "description": "Former residence of Ottoman sultans, now a museum with extensive collections",
+      "rating": 4.6,
+      "distance_from_center_km": 0.6
+    },
+    {
+      "location": "Izmit",
+      "name": "Izmit Clock Tower",
+      "category": "architectural",
+      "description": "Historic clock tower in the city center, symbol of Izmit",
+      "rating": 4.2,
+      "distance_from_center_km": 0.1
+    },
+    {
+      "location": "Izmit",
+      "name": "Izmit Bay",
+      "category": "scenic",
+      "description": "Beautiful bay area with cycling paths along the waterfront",
+      "rating": 4.4,
+      "distance_from_center_km": 2.0
+    },
+    {
+      "location": "Izmit",
+      "name": "Seka Park",
+      "category": "natural",
+      "description": "Large urban park with green spaces, perfect for a cycling break",
+      "rating": 4.3,
+      "distance_from_center_km": 1.5
+    },
+    {
+      "location": "Ankara",
+      "name": "Anitkabir",
+      "category": "historical",
+      "description": "Mausoleum of Mustafa Kemal Ataturk, founder of modern Turkey",
+      "rating": 4.8,
+      "distance_from_center_km": 3.0
+    },
+    {
+      "location": "Ankara",
+      "name": "Ankara Castle",
+      "category": "historical",
+      "description": "Ancient fortress with panoramic views of the city",
+      "rating": 4.5,
+      "distance_from_center_km": 1.2
+    },
+    {
+      "location": "Ankara",
+      "name": "Museum of Anatolian Civilizations",
+      "category": "cultural",
+      "description": "World-class museum showcasing artifacts from ancient Anatolian civilizations",
+      "rating": 4.7,
+      "distance_from_center_km": 0.8
+    },
+    {
+      "location": "Sakarya",
+      "name": "Sakarya River",
+      "category": "natural",
+      "description": "Scenic river with cycling paths along its banks",
+      "rating": 4.2,
+      "distance_from_center_km": 1.0
+    },
+    {
+      "location": "Sakarya",
+      "name": "Sakarya Museum",
+      "category": "cultural",
+      "description": "Local history museum with exhibits on regional culture",
+      "rating": 4.0,
+      "distance_from_center_km": 0.5
+    },
+    {
+      "location": "Bolu",
+      "name": "Yedigoller National Park",
+      "category": "natural",
+      "description": "Seven Lakes National Park with pristine forests and hiking trails",
+      "rating": 4.8,
+      "distance_from_center_km": 15.0
+    },
+    {
+      "location": "Bolu",
+      "name": "Bolu Mountain",
+      "category": "scenic",
+      "description": "Mountain area with challenging cycling routes and beautiful views",
+      "rating": 4.6,
+      "distance_from_center_km": 8.0
+    },
+    {
+      "location": "Izmir",
+      "name": "Ancient Agora of Smyrna",
+      "category": "historical",
+      "description": "Well-preserved ancient Greek and Roman marketplace ruins",
+      "rating": 4.5,
+      "distance_from_center_km": 1.5
+    },
+    {
+      "location": "Izmir",
+      "name": "Kordon Promenade",
+      "category": "scenic",
+      "description": "Beautiful waterfront promenade perfect for cycling with sea views",
+      "rating": 4.7,
+      "distance_from_center_km": 0.2
+    },
+    {
+      "location": "Izmir",
+      "name": "Kemeralti Bazaar",
+      "category": "cultural",
+      "description": "Historic bazaar district with traditional shops and cafes",
+      "rating": 4.4,
+      "distance_from_center_km": 0.5
+    },
+    {
+      "location": "Aydin",
+      "name": "Ephesus Ancient City",
+      "category": "historical",
+      "description": "One of the best-preserved ancient Roman cities in the Mediterranean",
+      "rating": 4.9,
+      "distance_from_center_km": 25.0
+    },
+    {
+      "location": "Aydin",
+      "name": "Aydin Archaeological Museum",
+      "category": "cultural",
+      "description": "Museum featuring artifacts from ancient civilizations of the region",
+      "rating": 4.3,
+      "distance_from_center_km": 0.8
+    },
+    {
+      "location": "Denizli",
+      "name": "Pamukkale",
+      "category": "natural",
+      "description": "Famous white travertine terraces with thermal pools, UNESCO World Heritage site",
+      "rating": 4.9,
+      "distance_from_center_km": 18.0
+    },
+    {
+      "location": "Denizli",
+      "name": "Hierapolis Ancient City",
+      "category": "historical",
+      "description": "Ancient Roman city ruins adjacent to Pamukkale",
+      "rating": 4.7,
+      "distance_from_center_km": 18.5
+    },
+    {
+      "location": "Antalya",
+      "name": "Old Town (Kaleici)",
+      "category": "historical",
+      "description": "Charming historic district with narrow streets and Ottoman architecture",
+      "rating": 4.6,
+      "distance_from_center_km": 0.3
+    },
+    {
+      "location": "Antalya",
+      "name": "Antalya Museum",
+      "category": "cultural",
+      "description": "One of Turkey's largest archaeological museums",
+      "rating": 4.7,
+      "distance_from_center_km": 2.0
+    },
+    {
+      "location": "Antalya",
+      "name": "Duden Waterfalls",
+      "category": "natural",
+      "description": "Beautiful waterfalls cascading into the Mediterranean Sea",
+      "rating": 4.5,
+      "distance_from_center_km": 8.0
+    },
+    {
+      "location": "Paris",
+      "name": "Eiffel Tower",
+      "category": "architectural",
+      "description": "Iconic iron lattice tower, symbol of Paris and France",
+      "rating": 4.7,
+      "distance_from_center_km": 2.5
+    },
+    {
+      "location": "Paris",
+      "name": "Louvre Museum",
+      "category": "cultural",
+      "description": "World's largest art museum and historic monument",
+      "rating": 4.8,
+      "distance_from_center_km": 1.0
+    },
+    {
+      "location": "Paris",
+      "name": "Notre-Dame Cathedral",
+      "category": "architectural",
+      "description": "Medieval Catholic cathedral, masterpiece of French Gothic architecture",
+      "rating": 4.6,
+      "distance_from_center_km": 1.2
+    },
+    {
+      "location": "Paris",
+      "name": "Seine River",
+      "category": "scenic",
+      "description": "Beautiful river with scenic cycling paths along its banks",
+      "rating": 4.5,
+      "distance_from_center_km": 0.5
+    },
+    {
+      "location": "Amiens",
+      "name": "Amiens Cathedral",
+      "category": "architectural",
+      "description": "Largest Gothic cathedral in France, UNESCO World Heritage site",
+      "rating": 4.7,
+      "distance_from_center_km": 0.3
+    },
+    {
+      "location": "Amiens",
+      "name": "Hortillonnages",
+      "category": "natural",
+      "description": "Floating gardens and canals, unique natural area",
+      "rating": 4.4,
+      "distance_from_center_km": 1.5
+    },
+    {
+      "location": "Calais",
+      "name": "Calais Lighthouse",
+      "category": "architectural",
+      "description": "Historic lighthouse with panoramic views of the English Channel",
+      "rating": 4.3,
+      "distance_from_center_km": 0.8
+    },
+    {
+      "location": "Calais",
+      "name": "Calais Beach",
+      "category": "scenic",
+      "description": "Sandy beach perfect for a cycling break with sea views",
+      "rating": 4.2,
+      "distance_from_center_km": 0.5
+    },
+    {
+      "location": "London",
+      "name": "Tower of London",
+      "category": "historical",
+      "description": "Historic castle and former royal palace, UNESCO World Heritage site",
+      "rating": 4.7,
+      "distance_from_center_km": 2.0
+    },
+    {
+      "location": "London",
+      "name": "British Museum",
+      "category": "cultural",
+      "description": "World-renowned museum with vast collections of human history and culture",
+      "rating": 4.8,
+      "distance_from_center_km": 1.5
+    },
+    {
+      "location": "London",
+      "name": "Thames Path",
+      "category": "scenic",
+      "description": "Long-distance walking and cycling path along the River Thames",
+      "rating": 4.6,
+      "distance_from_center_km": 0.3
+    },
+    {
+      "location": "Canterbury",
+      "name": "Canterbury Cathedral",
+      "category": "architectural",
+      "description": "Historic cathedral, one of the oldest Christian structures in England",
+      "rating": 4.7,
+      "distance_from_center_km": 0.2
+    },
+    {
+      "location": "Canterbury",
+      "name": "Canterbury Historic City Walls",
+      "category": "historical",
+      "description": "Well-preserved medieval city walls and gates",
+      "rating": 4.4,
+      "distance_from_center_km": 0.1
+    },
+    {
+      "location": "Amsterdam",
+      "name": "Rijksmuseum",
+      "category": "cultural",
+      "description": "Dutch national museum dedicated to arts and history",
+      "rating": 4.8,
+      "distance_from_center_km": 1.5
+    },
+    {
+      "location": "Amsterdam",
+      "name": "Anne Frank House",
+      "category": "historical",
+      "description": "Historic house where Anne Frank hid during WWII, now a museum",
+      "rating": 4.6,
+      "distance_from_center_km": 1.0
+    },
+    {
+      "location": "Amsterdam",
+      "name": "Vondelpark",
+      "category": "natural",
+      "description": "Large urban park perfect for cycling and relaxation",
+      "rating": 4.5,
+      "distance_from_center_km": 2.0
+    },
+    {
+      "location": "Utrecht",
+      "name": "Dom Tower",
+      "category": "architectural",
+      "description": "Tallest church tower in the Netherlands, symbol of Utrecht",
+      "rating": 4.6,
+      "distance_from_center_km": 0.3
+    },
+    {
+      "location": "Utrecht",
+      "name": "Utrecht Canals",
+      "category": "scenic",
+      "description": "Beautiful canal system with unique wharf cellars",
+      "rating": 4.5,
+      "distance_from_center_km": 0.2
+    },
+    {
+      "location": "Brussels",
+      "name": "Grand Place",
+      "category": "architectural",
+      "description": "Historic central square surrounded by ornate guildhalls",
+      "rating": 4.8,
+      "distance_from_center_km": 0.1
+    },
+    {
+      "location": "Brussels",
+      "name": "Atomium",
+      "category": "architectural",
+      "description": "Iconic building representing an iron crystal, symbol of Brussels",
+      "rating": 4.5,
+      "distance_from_center_km": 5.0
+    },
+    {
+      "location": "Brussels",
+      "name": "Royal Museums of Fine Arts",
+      "category": "cultural",
+      "description": "Group of art museums with extensive collections",
+      "rating": 4.6,
+      "distance_from_center_km": 0.8
+    },
+    {
+      "location": "Antwerp",
+      "name": "Cathedral of Our Lady",
+      "category": "architectural",
+      "description": "Gothic cathedral with works by Rubens",
+      "rating": 4.7,
+      "distance_from_center_km": 0.5
+    },
+    {
+      "location": "Antwerp",
+      "name": "Antwerp Central Station",
+      "category": "architectural",
+      "description": "Magnificent railway station, considered one of the world's most beautiful",
+      "rating": 4.6,
+      "distance_from_center_km": 1.2
+    },
+    {
+      "location": "Copenhagen",
+      "name": "Nyhavn",
+      "category": "scenic",
+      "description": "Colorful 17th-century waterfront canal with historic houses",
+      "rating": 4.7,
+      "distance_from_center_km": 0.8
+    },
+    {
+      "location": "Copenhagen",
+      "name": "Tivoli Gardens",
+      "category": "cultural",
+      "description": "Historic amusement park and pleasure garden",
+      "rating": 4.6,
+      "distance_from_center_km": 0.5
+    },
+    {
+      "location": "Copenhagen",
+      "name": "The Little Mermaid",
+      "category": "cultural",
+      "description": "Iconic bronze statue based on Hans Christian Andersen's fairy tale",
+      "rating": 4.3,
+      "distance_from_center_km": 2.5
+    },
+    {
+      "location": "Hamburg",
+      "name": "Elbphilharmonie",
+      "category": "architectural",
+      "description": "Modern concert hall with stunning architecture and harbor views",
+      "rating": 4.8,
+      "distance_from_center_km": 1.5
+    },
+    {
+      "location": "Hamburg",
+      "name": "Speicherstadt",
+      "category": "historical",
+      "description": "Historic warehouse district, UNESCO World Heritage site",
+      "rating": 4.6,
+      "distance_from_center_km": 0.8
+    },
+    {
+      "location": "Hamburg",
+      "name": "Planten un Blomen",
+      "category": "natural",
+      "description": "Large park with gardens, perfect for cycling breaks",
+      "rating": 4.5,
+      "distance_from_center_km": 1.0
+    },
+    {
+      "location": "Berlin",
+      "name": "Brandenburg Gate",
+      "category": "historical",
+      "description": "Neoclassical monument and symbol of German unity",
+      "rating": 4.7,
+      "distance_from_center_km": 1.0
+    },
+    {
+      "location": "Berlin",
+      "name": "Museum Island",
+      "category": "cultural",
+      "description": "UNESCO World Heritage site with five world-renowned museums",
+      "rating": 4.8,
+      "distance_from_center_km": 1.2
+    },
+    {
+      "location": "Berlin",
+      "name": "Tiergarten",
+      "category": "natural",
+      "description": "Large urban park with cycling paths, perfect for recreation",
+      "rating": 4.6,
+      "distance_from_center_km": 1.5
+    },
+    {
+      "location": "Dresden",
+      "name": "Frauenkirche",
+      "category": "architectural",
+      "description": "Reconstructed Baroque church, symbol of Dresden's rebirth",
+      "rating": 4.7,
+      "distance_from_center_km": 0.3
+    },
+    {
+      "location": "Dresden",
+      "name": "Zwinger Palace",
+      "category": "architectural",
+      "description": "Baroque palace complex with museums and gardens",
+      "rating": 4.6,
+      "distance_from_center_km": 0.5
+    },
+    {
+      "location": "Prague",
+      "name": "Prague Castle",
+      "category": "historical",
+      "description": "Largest ancient castle complex in the world",
+      "rating": 4.8,
+      "distance_from_center_km": 1.5
+    },
+    {
+      "location": "Prague",
+      "name": "Charles Bridge",
+      "category": "architectural",
+      "description": "Historic stone bridge with Baroque statues, iconic symbol of Prague",
+      "rating": 4.7,
+      "distance_from_center_km": 0.5
+    },
+    {
+      "location": "Prague",
+      "name": "Old Town Square",
+      "category": "historical",
+      "description": "Historic square with Astronomical Clock and Gothic architecture",
+      "rating": 4.6,
+      "distance_from_center_km": 0.3
+    }
+  ]
+}

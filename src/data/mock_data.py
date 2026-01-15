@@ -21,6 +21,9 @@ MOCK_WEATHER_PATH = Path(__file__).parent / "mock_weather.json"
 # Path to the mock elevation JSON file
 MOCK_ELEVATION_PATH = Path(__file__).parent / "mock_elevation.json"
 
+# Path to the mock points of interest JSON file
+MOCK_POINTS_OF_INTEREST_PATH = Path(__file__).parent / "mock_points_of_interest.json"
+
 # Minimum similarity threshold for fuzzy matching (70%)
 SIMILARITY_THRESHOLD = 70
 
@@ -390,3 +393,105 @@ def find_elevation(
         )
 
     return best_match
+
+
+def load_points_of_interest() -> list[dict[str, Any]]:
+    """Load points of interest from the mock_points_of_interest.json file."""
+    try:
+        with open(MOCK_POINTS_OF_INTEREST_PATH, encoding="utf-8") as f:
+            data = json.load(f)
+            points_of_interest = data.get("points_of_interest", [])
+            logger.info("Loaded %d points of interest from mock data", len(points_of_interest))
+            return points_of_interest
+    except FileNotFoundError:
+        logger.error("Mock points of interest file not found: %s", MOCK_POINTS_OF_INTEREST_PATH)
+        return []
+    except json.JSONDecodeError as e:
+        logger.error("Error parsing mock points of interest JSON: %s", str(e))
+        return []
+    except Exception as e:
+        logger.error("Error loading mock points of interest: %s", str(e))
+        return []
+
+
+def find_points_of_interest(
+    location: str,
+    category: str | None = None,
+    poi_data: list[dict[str, Any]] | None = None,
+) -> list[dict[str, Any]]:
+    """Find points of interest using fuzzy matching on location and optional category filter."""
+    if poi_data is None:
+        poi_data = load_points_of_interest()
+
+    normalized_location = normalize_location(location)
+    normalized_category = category.lower().strip() if category else None
+
+    # Normalize category for filtering
+    category_mapping = {
+        "historical": "historical",
+        "history": "historical",
+        "historic": "historical",
+        "natural": "natural",
+        "nature": "natural",
+        "cultural": "cultural",
+        "culture": "cultural",
+        "scenic": "scenic",
+        "scenery": "scenic",
+        "architectural": "architectural",
+        "architecture": "architectural",
+    }
+    filter_category = (
+        category_mapping.get(normalized_category, normalized_category)
+        if normalized_category
+        else None
+    )
+
+    matching_pois: list[dict[str, Any]] = []
+    location_similarities: dict[str, float] = {}
+
+    for poi in poi_data:
+        poi_location = normalize_location(poi.get("location", ""))
+        poi_category = poi.get("category", "").lower()
+
+        # Calculate similarity score for location
+        location_similarity = fuzz.ratio(normalized_location, poi_location)
+
+        # Check if location matches and category matches (if filter is specified)
+        if location_similarity >= SIMILARITY_THRESHOLD:
+            # Filter by category if specified
+            if filter_category is None or poi_category == filter_category:
+                # Add POI with its similarity score for sorting
+                matching_pois.append(poi)
+                # Store similarity score for this location (use max if multiple)
+                location_key = poi_location
+                if (
+                    location_key not in location_similarities
+                    or location_similarity > location_similarities[location_key]
+                ):
+                    location_similarities[location_key] = location_similarity
+
+    # Sort by location similarity (descending) and then by rating (descending, if available)
+    matching_pois.sort(
+        key=lambda p: (
+            -location_similarities.get(
+                normalize_location(p.get("location", "")), 0
+            ),
+            -(p.get("rating", 0) or 0),
+        )
+    )
+
+    if matching_pois:
+        logger.info(
+            "Found %d points of interest matching - location: %s, category: %s",
+            len(matching_pois),
+            location,
+            category or "all",
+        )
+    else:
+        logger.warning(
+            "No points of interest found matching - location: %s, category: %s",
+            location,
+            category or "all",
+        )
+
+    return matching_pois
