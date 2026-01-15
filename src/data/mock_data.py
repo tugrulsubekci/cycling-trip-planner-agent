@@ -18,6 +18,9 @@ MOCK_ACCOMMODATIONS_PATH = Path(__file__).parent / "mock_accommodations.json"
 # Path to the mock weather JSON file
 MOCK_WEATHER_PATH = Path(__file__).parent / "mock_weather.json"
 
+# Path to the mock elevation JSON file
+MOCK_ELEVATION_PATH = Path(__file__).parent / "mock_elevation.json"
+
 # Minimum similarity threshold for fuzzy matching (70%)
 SIMILARITY_THRESHOLD = 70
 
@@ -324,6 +327,66 @@ def find_weather(
             "No weather found matching - location: %s, month: %s",
             location,
             month,
+        )
+
+    return best_match
+
+
+def load_elevation() -> list[dict[str, Any]]:
+    """Load elevation data from the mock_elevation.json file."""
+    try:
+        with open(MOCK_ELEVATION_PATH, encoding="utf-8") as f:
+            data = json.load(f)
+            cities = data.get("cities", [])
+            logger.info("Loaded %d elevation entries from mock data", len(cities))
+            return cities
+    except FileNotFoundError:
+        logger.error("Mock elevation file not found: %s", MOCK_ELEVATION_PATH)
+        return []
+    except json.JSONDecodeError as e:
+        logger.error("Error parsing mock elevation JSON: %s", str(e))
+        return []
+    except Exception as e:
+        logger.error("Error loading mock elevation: %s", str(e))
+        return []
+
+
+def find_elevation(
+    location: str,
+    elevation_data: list[dict[str, Any]] | None = None,
+) -> dict[str, Any] | None:
+    """Find elevation data using fuzzy matching on location name."""
+    if elevation_data is None:
+        elevation_data = load_elevation()
+
+    normalized_location = normalize_location(location)
+
+    best_match: dict[str, Any] | None = None
+    best_score = 0
+
+    for city_entry in elevation_data:
+        city_name = normalize_location(city_entry.get("city", ""))
+
+        # Calculate similarity score for location
+        location_similarity = fuzz.ratio(normalized_location, city_name)
+
+        # Check if location matches
+        if location_similarity >= SIMILARITY_THRESHOLD:
+            # Use location similarity as the score
+            if location_similarity > best_score:
+                best_score = location_similarity
+                best_match = city_entry
+
+    if best_match:
+        logger.info(
+            "Found elevation match - location: %s, similarity: %.1f%%",
+            location,
+            best_score,
+        )
+    else:
+        logger.warning(
+            "No elevation found matching - location: %s",
+            location,
         )
 
     return best_match

@@ -1,0 +1,124 @@
+{
+  "cities": [
+    {
+      "city": "Istanbul",
+      "elevation_m": 100
+    },
+    {
+      "city": "Izmit",
+      "elevation_m": 50
+    },
+    {
+      "city": "Sakarya",
+      "elevation_m": 150
+    },
+    {
+      "city": "Bolu",
+      "elevation_m": 750
+    },
+    {
+      "city": "Ankara",
+      "elevation_m": 938
+    },
+    {
+      "city": "Izmir",
+      "elevation_m": 25
+    },
+    {
+      "city": "Aydin",
+      "elevation_m": 65
+    },
+    {
+      "city": "Denizli",
+      "elevation_m": 425
+    },
+    {
+      "city": "Burdur",
+      "elevation_m": 957
+    },
+    {
+      "city": "Antalya",
+      "elevation_m": 30
+    },
+    {
+      "city": "Paris",
+      "elevation_m": 35
+    },
+    {
+      "city": "Amiens",
+      "elevation_m": 30
+    },
+    {
+      "city": "Calais",
+      "elevation_m": 5
+    },
+    {
+      "city": "Dover",
+      "elevation_m": 12
+    },
+    {
+      "city": "Canterbury",
+      "elevation_m": 15
+    },
+    {
+      "city": "London",
+      "elevation_m": 11
+    },
+    {
+      "city": "Amsterdam",
+      "elevation_m": 2
+    },
+    {
+      "city": "Utrecht",
+      "elevation_m": 5
+    },
+    {
+      "city": "Breda",
+      "elevation_m": 3
+    },
+    {
+      "city": "Antwerp",
+      "elevation_m": 7
+    },
+    {
+      "city": "Brussels",
+      "elevation_m": 13
+    },
+    {
+      "city": "Arnhem",
+      "elevation_m": 13
+    },
+    {
+      "city": "Osnabruck",
+      "elevation_m": 63
+    },
+    {
+      "city": "Hamburg",
+      "elevation_m": 6
+    },
+    {
+      "city": "Lubeck",
+      "elevation_m": 13
+    },
+    {
+      "city": "Copenhagen",
+      "elevation_m": 14
+    },
+    {
+      "city": "Berlin",
+      "elevation_m": 34
+    },
+    {
+      "city": "Dresden",
+      "elevation_m": 113
+    },
+    {
+      "city": "Usti nad Labem",
+      "elevation_m": 150
+    },
+    {
+      "city": "Prague",
+      "elevation_m": 177
+    }
+  ]
+}
