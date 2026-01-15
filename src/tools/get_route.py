@@ -45,7 +45,7 @@ class GetRouteOutput(BaseModel):
 
 
 @tool(args_schema=GetRouteInput)
-def get_route(start_point: str, end_point: str, daily_average_km: float) -> dict:
+def get_route(start_point: str, end_point: str, daily_average_km: float) -> dict:  # type: ignore[return-value]
     """Get cycling route between two points (distance, estimated days, waypoints)."""
     logger.info(
         "get_route called - start_point: %s, end_point: %s, daily_average_km: %.1f",
