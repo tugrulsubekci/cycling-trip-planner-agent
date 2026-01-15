@@ -28,6 +28,11 @@ SYSTEM_PROMPT = (
     "- Assume the daily plan is precomputed"
     "- Focus on explaining, contextualizing, and enriching it"
     "- Never recalculate distances or days yourself"
+    "For periodic accommodation preferences (e.g., 'every 4th night', 'every 3 nights'):"
+    "- ALWAYS use the calculate_accommodation_schedule tool to determine "
+    "which nights need special accommodation"
+    "- NEVER calculate accommodation schedules yourself - you may make mathematical errors"
+    "- Use the schedule returned by the tool when calling find_accommodation for each night"
     "If required data is missing, ask concise clarifying questions."
 )
 
