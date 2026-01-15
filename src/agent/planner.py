@@ -2,10 +2,10 @@
 
 import logging
 import os
-from collections.abc import Callable
+from collections.abc import Awaitable, Callable
 
 from langchain.agents import create_agent
-from langchain.agents.middleware import wrap_tool_call
+from langchain.agents.middleware import AgentMiddleware
 from langchain.messages import AIMessage, HumanMessage, SystemMessage, ToolMessage
 from langchain.tools.tool_node import ToolCallRequest
 from langchain_anthropic import ChatAnthropic
@@ -28,38 +28,74 @@ SYSTEM_PROMPT = (
 )
 
 
-@wrap_tool_call
-def handle_tool_errors(
-    request: ToolCallRequest,
-    handler: Callable[[ToolCallRequest], ToolMessage | Command],
-) -> ToolMessage | Command:
-    """Handle tool execution errors with custom messages."""
-    tool_name = request.tool_call.get("name", "unknown")
-    tool_call_id = request.tool_call.get("id", "unknown")
+class ToolErrorHandlerMiddleware(AgentMiddleware):
+    """Middleware to handle tool execution errors with custom messages."""
 
-    try:
-        result = handler(request)
-        # Log successful tool execution
-        logger.info(
-            "Tool completed - tool_name: %s, tool_call_id: %s",
-            tool_name,
-            tool_call_id,
-        )
-        return result
-    except Exception as exc:
-        # Log tool execution error
-        logger.error(
-            "Tool execution error - tool_name: %s, tool_call_id: %s, error: %s, error_type: %s",
-            tool_name,
-            tool_call_id,
-            str(exc),
-            type(exc).__name__,
-            exc_info=True,
-        )
-        return ToolMessage(
-            content=f"Tool error: Please check your input and try again. ({exc})",
-            tool_call_id=tool_call_id,
-        )
+    async def awrap_tool_call(
+        self,
+        request: ToolCallRequest,
+        handler: Callable[[ToolCallRequest], Awaitable[ToolMessage | Command]],
+    ) -> ToolMessage | Command:
+        """Handle tool execution errors with custom messages (async version)."""
+        tool_name = request.tool_call.get("name", "unknown")
+        tool_call_id = request.tool_call.get("id", "unknown")
+
+        try:
+            result = await handler(request)
+            # Log successful tool execution
+            logger.info(
+                "Tool completed - tool_name: %s, tool_call_id: %s",
+                tool_name,
+                tool_call_id,
+            )
+            return result
+        except Exception as exc:
+            # Log tool execution error
+            logger.error(
+                "Tool execution error - tool_name: %s, tool_call_id: %s, error: %s, error_type: %s",
+                tool_name,
+                tool_call_id,
+                str(exc),
+                type(exc).__name__,
+                exc_info=True,
+            )
+            return ToolMessage(
+                content=f"Tool error: Please check your input and try again. ({exc})",
+                tool_call_id=tool_call_id,
+            )
+
+    def wrap_tool_call(
+        self,
+        request: ToolCallRequest,
+        handler: Callable[[ToolCallRequest], ToolMessage | Command],
+    ) -> ToolMessage | Command:
+        """Handle tool execution errors with custom messages (sync version)."""
+        tool_name = request.tool_call.get("name", "unknown")
+        tool_call_id = request.tool_call.get("id", "unknown")
+
+        try:
+            result = handler(request)
+            # Log successful tool execution
+            logger.info(
+                "Tool completed - tool_name: %s, tool_call_id: %s",
+                tool_name,
+                tool_call_id,
+            )
+            return result
+        except Exception as exc:
+            # Log tool execution error
+            logger.error(
+                "Tool execution error - tool_name: %s, tool_call_id: %s, error: %s, error_type: %s",
+                tool_name,
+                tool_call_id,
+                str(exc),
+                type(exc).__name__,
+                exc_info=True,
+            )
+            return ToolMessage(
+                content=f"Tool error: Please check your input and try again. ({exc})",
+                tool_call_id=tool_call_id,
+            )
 
 
 class CyclingTripPlannerAgent:
@@ -80,7 +116,7 @@ class CyclingTripPlannerAgent:
         self.agent: Pregel = create_agent(
             model=self.model,
             tools=ALL_TOOLS,
-            middleware=[handle_tool_errors],
+            middleware=[ToolErrorHandlerMiddleware()],
             checkpointer=self.checkpointer,
         )
 

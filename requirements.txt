@@ -8,3 +8,4 @@ langchain-core==1.2.7
 langgraph==1.0.6
 pydantic==2.12.5
 python-dotenv==1.2.1
+rapidfuzz==3.5.2

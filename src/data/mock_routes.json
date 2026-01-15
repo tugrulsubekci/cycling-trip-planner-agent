@@ -1,0 +1,90 @@
+{
+  "routes": [
+    {
+      "start_point": "Istanbul",
+      "end_point": "Ankara",
+      "distance_km": 450,
+      "waypoints": [
+        {"name": "Istanbul", "km": 0},
+        {"name": "Izmit", "km": 120},
+        {"name": "Sakarya", "km": 200},
+        {"name": "Bolu", "km": 320},
+        {"name": "Ankara", "km": 450}
+      ],
+      "difficulty": "moderate",
+      "description": "Scenic route through northwestern Turkey"
+    },
+    {
+      "start_point": "Izmir",
+      "end_point": "Antalya",
+      "distance_km": 320,
+      "waypoints": [
+        {"name": "Izmir", "km": 0},
+        {"name": "Aydin", "km": 80},
+        {"name": "Denizli", "km": 160},
+        {"name": "Burdur", "km": 240},
+        {"name": "Antalya", "km": 320}
+      ],
+      "difficulty": "moderate",
+      "description": "Beautiful coastal route along the Aegean and Mediterranean"
+    },
+    {
+      "start_point": "Paris",
+      "end_point": "London",
+      "distance_km": 350,
+      "waypoints": [
+        {"name": "Paris", "km": 0},
+        {"name": "Amiens", "km": 100},
+        {"name": "Calais", "km": 200},
+        {"name": "Dover", "km": 280},
+        {"name": "Canterbury", "km": 320},
+        {"name": "London", "km": 350}
+      ],
+      "difficulty": "easy",
+      "description": "Classic route connecting two major European capitals"
+    },
+    {
+      "start_point": "Amsterdam",
+      "end_point": "Brussels",
+      "distance_km": 210,
+      "waypoints": [
+        {"name": "Amsterdam", "km": 0},
+        {"name": "Utrecht", "km": 50},
+        {"name": "Breda", "km": 120},
+        {"name": "Antwerp", "km": 170},
+        {"name": "Brussels", "km": 210}
+      ],
+      "difficulty": "easy",
+      "description": "Flat and scenic route through the Netherlands and Belgium"
+    },
+    {
+      "start_point": "Amsterdam",
+      "end_point": "Copenhagen",
+      "distance_km": 650,
+      "waypoints": [
+        {"name": "Amsterdam", "km": 0},
+        {"name": "Utrecht", "km": 50},
+        {"name": "Arnhem", "km": 150},
+        {"name": "Osnabruck", "km": 280},
+        {"name": "Hamburg", "km": 450},
+        {"name": "Lubeck", "km": 580},
+        {"name": "Copenhagen", "km": 650}
+      ],
+      "difficulty": "moderate",
+      "description": "Long-distance route through the Netherlands, Germany, and Denmark"
+    },
+    {
+      "start_point": "Berlin",
+      "end_point": "Prague",
+      "distance_km": 350,
+      "waypoints": [
+        {"name": "Berlin", "km": 0},
+        {"name": "Dresden", "km": 150},
+        {"name": "Usti nad Labem", "km": 280},
+        {"name": "Prague", "km": 350}
+      ],
+      "difficulty": "moderate",
+      "description": "Picturesque route through Germany and Czech Republic"
+    }
+  ]
+}
