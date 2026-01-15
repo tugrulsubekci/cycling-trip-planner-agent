@@ -2,17 +2,16 @@
 
 import asyncio
 import logging
+import os
 import sys
-import uuid
 
+import httpx
 from dotenv import load_dotenv
 from rich.console import Console
 from rich.markdown import Markdown
 from rich.panel import Panel
 from rich.prompt import Prompt
 from rich.text import Text
-
-from src.agent.planner import CyclingTripPlannerAgent
 
 # Load environment variables from .env file
 load_dotenv()
@@ -28,6 +27,10 @@ logger: logging.Logger = logging.getLogger(__name__)
 
 # Create Rich console instance
 console = Console()
+
+# API Configuration
+API_URL = os.getenv("CHAT_API_URL") or os.getenv("API_URL") or "http://localhost:8000"
+CHAT_ENDPOINT = f"{API_URL}/chat"
 
 
 def print_welcome() -> None:
@@ -52,19 +55,91 @@ def print_separator() -> None:
     console.print("[dim]" + "─" * 60 + "[/dim]")
 
 
+async def send_chat_message(
+    client: httpx.AsyncClient,
+    message: str,
+    thread_id: str | None,
+) -> tuple[str, str]:
+    """
+    Send a chat message to the API endpoint.
+
+    Args:
+        client: HTTP client instance
+        message: User's message
+        thread_id: Optional thread ID for conversation continuity
+
+    Returns:
+        Tuple of (thread_id, response_message)
+
+    Raises:
+        httpx.HTTPStatusError: For HTTP 4xx/5xx errors
+        httpx.RequestError: For network errors
+    """
+    try:
+        response = await client.post(
+            CHAT_ENDPOINT,
+            json={"thread_id": thread_id, "message": message},
+            timeout=120.0,  # 2 minute timeout for long-running agent operations
+        )
+        response.raise_for_status()
+        data = response.json()
+        return data["thread_id"], data["message"]
+    except httpx.HTTPStatusError as e:
+        error_msg = f"HTTP {e.response.status_code}"
+        if e.response.status_code == 400:
+            error_msg += ": Bad request. Please check your input."
+        elif e.response.status_code == 500:
+            error_msg += ": Server error. Please try again later."
+        else:
+            try:
+                detail = e.response.json().get("detail", str(e))
+                error_msg += f": {detail}"
+            except Exception:
+                error_msg += f": {str(e)}"
+        raise httpx.HTTPStatusError(error_msg, request=e.request, response=e.response) from e
+    except httpx.RequestError as e:
+        raise httpx.RequestError(
+            f"Network error: Could not connect to API at {CHAT_ENDPOINT}. "
+            f"Make sure the server is running. Error: {str(e)}",
+            request=e.request,
+        ) from e
+
+
 async def main() -> None:
     """Main interactive loop for the console application."""
-    try:
-        # Initialize agent
-        console.print("[dim]Initializing agent...[/dim]")
-        agent = CyclingTripPlannerAgent()
-        console.print("[green]✓ Agent initialized[/green]\n")
+    # Display welcome message
+    print_welcome()
 
-        # Generate unique thread_id for this session
-        thread_id = str(uuid.uuid4())
+    # Initialize thread_id (will be set after first API call)
+    thread_id: str | None = None
 
-        # Display welcome message
-        print_welcome()
+    # Create HTTP client
+    async with httpx.AsyncClient() as client:
+        # Test connection to API
+        try:
+            console.print(f"[dim]Connecting to API at {API_URL}...[/dim]")
+            health_response = await client.get(f"{API_URL}/health", timeout=5.0)
+            health_response.raise_for_status()
+            console.print("[green]✓ Connected to API[/green]\n")
+        except httpx.RequestError as e:
+            console.print(
+                f"[bold red]Connection Error:[/bold red] Could not connect to API at {API_URL}",
+                style="red",
+            )
+            console.print(
+                "[yellow]Please make sure the API server is running. "
+                "You can set CHAT_API_URL or API_URL environment variable "
+                "to change the API URL.[/yellow]"
+            )
+            logger.error(f"API connection error: {e}", exc_info=True)
+            sys.exit(1)
+        except httpx.HTTPStatusError as e:
+            console.print(
+                f"[bold red]API Error:[/bold red] API returned status {e.response.status_code}",
+                style="red",
+            )
+            logger.error(f"API health check error: {e}", exc_info=True)
+            sys.exit(1)
 
         # Interactive loop
         while True:
@@ -84,14 +159,34 @@ async def main() -> None:
                 # Show loading indicator
                 with console.status("[bold yellow]Thinking...", spinner="dots"):
                     try:
-                        # Invoke agent
-                        response = await agent.invoke(user_input, thread_id=thread_id)
+                        # Send message to API
+                        thread_id, response = await send_chat_message(
+                            client, user_input, thread_id
+                        )
+                    except httpx.HTTPStatusError as e:
+                        console.print(
+                            f"[bold red]API Error:[/bold red] {str(e)}",
+                            style="red",
+                        )
+                        logger.error(f"API HTTP error: {e}", exc_info=True)
+                        continue
+                    except httpx.RequestError as e:
+                        console.print(
+                            f"[bold red]Network Error:[/bold red] {str(e)}",
+                            style="red",
+                        )
+                        console.print(
+                            "[yellow]Please check your connection and make sure "
+                            "the API server is running.[/yellow]",
+                        )
+                        logger.error(f"API request error: {e}", exc_info=True)
+                        continue
                     except Exception as e:
                         console.print(
                             f"[bold red]Error:[/bold red] {str(e)}",
                             style="red",
                         )
-                        logger.error(f"Agent invocation error: {e}", exc_info=True)
+                        logger.error(f"Unexpected error: {e}", exc_info=True)
                         continue
 
                 # Render markdown response
@@ -116,20 +211,6 @@ async def main() -> None:
                 # Handle Ctrl+D (EOF)
                 print_goodbye()
                 break
-
-    except ValueError as e:
-        # Handle missing API key
-        console.print(f"[bold red]Configuration Error:[/bold red] {str(e)}", style="red")
-        console.print(
-            "[yellow]Please make sure ANTHROPIC_API_KEY is set in your "
-            ".env file or environment.[/yellow]"
-        )
-        sys.exit(1)
-    except Exception as e:
-        # Handle other initialization errors
-        console.print(f"[bold red]Initialization Error:[/bold red] {str(e)}", style="red")
-        logger.error(f"Initialization error: {e}", exc_info=True)
-        sys.exit(1)
 
 
 if __name__ == "__main__":
