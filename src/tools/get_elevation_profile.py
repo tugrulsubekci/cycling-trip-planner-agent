@@ -27,6 +27,37 @@ class GetElevationProfileInput(BaseModel):
     )
 
 
+class ElevationWaypoint(BaseModel):
+    """Waypoint with elevation data."""
+
+    name: str = Field(description="Name of the waypoint")
+    elevation_m: float = Field(description="Elevation in meters")
+
+
+class RouteElevationOutput(BaseModel):
+    """Output schema for route elevation profile."""
+
+    start_point: str = Field(description="Starting location")
+    end_point: str = Field(description="Destination location")
+    distance_km: float = Field(description="Total distance in kilometers")
+    total_elevation_gain: float = Field(description="Total elevation gain in meters")
+    total_elevation_loss: float = Field(description="Total elevation loss in meters")
+    max_elevation: float = Field(description="Maximum elevation in meters")
+    max_elevation_waypoint: str = Field(description="Waypoint with maximum elevation")
+    min_elevation: float = Field(description="Minimum elevation in meters")
+    min_elevation_waypoint: str = Field(description="Waypoint with minimum elevation")
+    average_gradient_m_per_km: float = Field(description="Average gradient in meters per kilometer")
+    difficulty_rating: str = Field(description="Difficulty rating (Easy, Moderate, Hard, Very Hard)")
+    profile: list[ElevationWaypoint] = Field(description="Elevation profile with waypoints")
+
+
+class LocationElevationOutput(BaseModel):
+    """Output schema for single location elevation."""
+
+    location: str = Field(description="Location name")
+    elevation_m: float = Field(description="Base elevation in meters above sea level")
+
+
 def calculate_difficulty_rating(elevation_gain_per_km: float) -> str:
     """Calculate difficulty rating based on elevation gain per kilometer."""
     if elevation_gain_per_km < 10:
@@ -44,7 +75,7 @@ def get_elevation_profile(
     location: str | None = None,
     start_point: str | None = None,
     end_point: str | None = None,
-) -> str:
+) -> dict:
     """Get terrain difficulty including elevation gain and difficulty rating."""
     logger.info(
         "get_elevation_profile called - location: %s, start_point: %s, end_point: %s",
@@ -140,26 +171,30 @@ def get_elevation_profile(
             elevation_gain_per_km = (total_elevation_gain / distance_km) if distance_km > 0 else 0.0
             difficulty_rating = calculate_difficulty_rating(elevation_gain_per_km)
 
-            # Build elevation profile string
-            profile_parts = []
-            for wp in waypoint_elevations:
-                profile_parts.append(f"{wp['name']} ({wp['elevation_m']:.0f} m)")
-            profile_str = " → ".join(profile_parts)
+            # Build elevation profile list
+            profile = [
+                ElevationWaypoint(name=wp["name"], elevation_m=wp["elevation_m"])
+                for wp in waypoint_elevations
+            ]
 
-            # Format result string
-            result = (
-                f"Elevation Profile for {start_point} to {end_point}:\n"
-                f"- Distance: {distance_km} km\n"
-                f"- Total Elevation Gain: {total_elevation_gain:.0f} m\n"
-                f"- Total Elevation Loss: {total_elevation_loss:.0f} m\n"
-                f"- Maximum Elevation: {max_elevation:.0f} m ({max_elevation_waypoint})\n"
-                f"- Minimum Elevation: {min_elevation:.0f} m ({min_elevation_waypoint})\n"
-                f"- Average Gradient: {elevation_gain_per_km:.1f} m/km\n"
-                f"- Difficulty Rating: {difficulty_rating}\n"
-                f"- Elevation Profile:\n  {profile_str}"
+            # Build structured output
+            output = RouteElevationOutput(
+                start_point=start_point,
+                end_point=end_point,
+                distance_km=distance_km,
+                total_elevation_gain=total_elevation_gain,
+                total_elevation_loss=total_elevation_loss,
+                max_elevation=max_elevation,
+                max_elevation_waypoint=max_elevation_waypoint,
+                min_elevation=min_elevation,
+                min_elevation_waypoint=min_elevation_waypoint,
+                average_gradient_m_per_km=elevation_gain_per_km,
+                difficulty_rating=difficulty_rating,
+                profile=profile,
             )
 
-            return result
+            # Return structured data as dict
+            return output.model_dump()
 
         # If single location is provided, return city elevation
         elif location:
@@ -173,12 +208,14 @@ def get_elevation_profile(
 
             elevation_m = elevation_data.get("elevation_m", 0)
 
-            result = (
-                f"Elevation Profile for {location}:\n"
-                f"- Base Elevation: {elevation_m} m above sea level"
+            # Build structured output
+            output = LocationElevationOutput(
+                location=location,
+                elevation_m=elevation_m,
             )
 
-            return result
+            # Return structured data as dict
+            return output.model_dump()
 
         else:
             return (

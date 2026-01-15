@@ -59,6 +59,72 @@ class EstimateBudgetInput(BaseModel):
     )
 
 
+class AccommodationBreakdownItem(BaseModel):
+    """Individual accommodation breakdown item."""
+
+    waypoint_name: str = Field(description="Name of the waypoint location")
+    price_per_night: float = Field(description="Price per night")
+    currency: str = Field(description="Currency code")
+    nights: int = Field(description="Number of nights")
+    total_cost: float = Field(description="Total cost")
+    is_estimated: bool = Field(description="Whether this is an estimated price")
+
+
+class AccommodationBudgetItem(BaseModel):
+    """Accommodation budget details."""
+
+    total_eur: float = Field(description="Total accommodation cost in EUR")
+    breakdown: list[AccommodationBreakdownItem] = Field(
+        description="Breakdown by waypoint/location"
+    )
+    currency_details: dict[str, float] = Field(
+        description="Total costs by currency (excluding EUR)"
+    )
+
+
+class FoodBudgetItem(BaseModel):
+    """Food budget details."""
+
+    total_eur: float = Field(description="Total food cost in EUR")
+    daily_cost_eur: float = Field(description="Daily food cost in EUR")
+    days: int = Field(description="Number of days")
+
+
+class VisaBudgetItem(BaseModel):
+    """Visa budget details."""
+
+    cost_usd: float = Field(description="Visa cost in USD (0 if not required or free)")
+    cost_eur: float = Field(description="Visa cost in EUR")
+    info: str = Field(description="Visa information message")
+
+
+class OtherExpensesItem(BaseModel):
+    """Other expenses budget details."""
+
+    total_eur: float = Field(description="Total other expenses in EUR")
+    bike_maintenance_eur: float = Field(description="Bike maintenance cost in EUR")
+    bike_maintenance_per_km: float = Field(description="Bike maintenance cost per km")
+    distance_km: float = Field(description="Total distance in km")
+    miscellaneous_eur: float = Field(description="Miscellaneous expenses in EUR")
+    miscellaneous_per_day: float = Field(description="Miscellaneous expenses per day")
+    days: int = Field(description="Number of days")
+
+
+class EstimateBudgetOutput(BaseModel):
+    """Output schema for estimate_budget tool."""
+
+    start_point: str = Field(description="Starting location")
+    end_point: str = Field(description="Destination location")
+    route_distance_km: float = Field(description="Total route distance in kilometers")
+    estimated_days: int = Field(description="Estimated number of days")
+    accommodation: AccommodationBudgetItem = Field(description="Accommodation budget details")
+    food: FoodBudgetItem = Field(description="Food budget details")
+    visa: VisaBudgetItem = Field(description="Visa budget details")
+    other_expenses: OtherExpensesItem = Field(description="Other expenses budget details")
+    total_eur: float = Field(description="Total budget in EUR")
+    total_usd: float = Field(description="Total budget in USD")
+
+
 def convert_to_eur(amount: float, currency: str) -> float:
     """Convert amount from given currency to EUR."""
     if currency == "EUR":
@@ -119,7 +185,7 @@ def estimate_budget(
     accommodation_preference: str | None = None,
     destination: str | None = None,
     nationality: str | None = None,
-) -> str:
+) -> dict:
     """Estimate budget for a cycling trip.
 
     Includes accommodation, food, visa, and other expenses.
@@ -165,7 +231,7 @@ def estimate_budget(
 
         # Calculate accommodation costs
         accommodation_total_eur = 0.0
-        accommodation_breakdown: list[str] = []
+        accommodation_breakdown_items: list[AccommodationBreakdownItem] = []
         accommodation_by_currency: dict[str, float] = defaultdict(float)
 
         if waypoints and len(waypoints) > 1:
@@ -186,17 +252,24 @@ def estimate_budget(
                 accommodations = find_accommodations(waypoint_name, acc_type)
                 acc_price_info = get_accommodation_price(accommodations, accommodation_preference)
 
+                nights = nights_per_stop if i < num_stops - 1 else (
+                    estimated_days - (nights_per_stop * (num_stops - 1))
+                )
+
                 if acc_price_info:
                     price, currency = acc_price_info
-                    nights = nights_per_stop if i < num_stops - 1 else (
-                        estimated_days - (nights_per_stop * (num_stops - 1))
-                    )
                     total_cost = price * nights
                     accommodation_total_eur += convert_to_eur(total_cost, currency)
                     accommodation_by_currency[currency] += total_cost
-                    accommodation_breakdown.append(
-                        f"  {waypoint_name}: {price:.2f} {currency}/night × {nights} nights = "
-                        f"{total_cost:.2f} {currency}"
+                    accommodation_breakdown_items.append(
+                        AccommodationBreakdownItem(
+                            waypoint_name=waypoint_name,
+                            price_per_night=price,
+                            currency=currency,
+                            nights=nights,
+                            total_cost=total_cost,
+                            is_estimated=False,
+                        )
                     )
                 else:
                     # Estimate based on preference if no data
@@ -209,15 +282,18 @@ def estimate_budget(
                             estimated_price = 25.0
                         elif pref == "hotel":
                             estimated_price = 80.0
-                    nights = nights_per_stop if i < num_stops - 1 else (
-                        estimated_days - (nights_per_stop * (num_stops - 1))
-                    )
                     total_cost = estimated_price * nights
                     accommodation_total_eur += total_cost
                     accommodation_by_currency["EUR"] += total_cost
-                    accommodation_breakdown.append(
-                        f"  {waypoint_name}: {estimated_price:.2f} EUR/night × {nights} nights = "
-                        f"{total_cost:.2f} EUR (estimated)"
+                    accommodation_breakdown_items.append(
+                        AccommodationBreakdownItem(
+                            waypoint_name=waypoint_name,
+                            price_per_night=estimated_price,
+                            currency="EUR",
+                            nights=nights,
+                            total_cost=total_cost,
+                            is_estimated=True,
+                        )
                     )
         else:
             # No waypoints or single waypoint - estimate based on total days
@@ -232,9 +308,15 @@ def estimate_budget(
                     estimated_price = 80.0
             accommodation_total_eur = estimated_price * estimated_days
             accommodation_by_currency["EUR"] = accommodation_total_eur
-            accommodation_breakdown.append(
-                f"  Estimated: {estimated_price:.2f} EUR/night × {estimated_days} days = "
-                f"{accommodation_total_eur:.2f} EUR"
+            accommodation_breakdown_items.append(
+                AccommodationBreakdownItem(
+                    waypoint_name="Estimated",
+                    price_per_night=estimated_price,
+                    currency="EUR",
+                    nights=estimated_days,
+                    total_cost=accommodation_total_eur,
+                    is_estimated=True,
+                )
             )
 
         # Calculate food costs
@@ -269,49 +351,49 @@ def estimate_budget(
         total_eur = accommodation_total_eur + food_total_eur + visa_total_eur + other_total_eur
         total_usd = convert_eur_to_usd(total_eur)
 
-        # Build result string
-        result = f"Budget Estimate for {start_point} to {end_point}:\n"
-        result += f"- Route: {distance_km} km, {estimated_days} days\n\n"
+        # Build currency details (excluding EUR)
+        currency_details = {
+            curr: amount
+            for curr, amount in sorted(accommodation_by_currency.items())
+            if curr != "EUR"
+        }
 
-        # Accommodation breakdown
-        result += f"Accommodation: {accommodation_total_eur:.2f} EUR\n"
-        if accommodation_breakdown:
-            result += "\n".join(accommodation_breakdown) + "\n"
-        if accommodation_by_currency:
-            currency_lines = []
-            for curr, amount in sorted(accommodation_by_currency.items()):
-                if curr != "EUR":
-                    currency_lines.append(f"  ({amount:.2f} {curr})")
-            if currency_lines:
-                result += "  " + " ".join(currency_lines) + "\n"
-        result += "\n"
-
-        # Food
-        food_line = (
-            f"Food: {food_total_eur:.2f} EUR "
-            f"({DAILY_FOOD_COST:.2f} EUR/day × {estimated_days} days)\n\n"
+        # Build structured output
+        output = EstimateBudgetOutput(
+            start_point=start_point,
+            end_point=end_point,
+            route_distance_km=distance_km,
+            estimated_days=estimated_days,
+            accommodation=AccommodationBudgetItem(
+                total_eur=accommodation_total_eur,
+                breakdown=accommodation_breakdown_items,
+                currency_details=currency_details,
+            ),
+            food=FoodBudgetItem(
+                total_eur=food_total_eur,
+                daily_cost_eur=DAILY_FOOD_COST,
+                days=estimated_days,
+            ),
+            visa=VisaBudgetItem(
+                cost_usd=visa_total_usd,
+                cost_eur=visa_total_eur,
+                info=visa_info,
+            ),
+            other_expenses=OtherExpensesItem(
+                total_eur=other_total_eur,
+                bike_maintenance_eur=bike_maintenance_eur,
+                bike_maintenance_per_km=BIKE_MAINTENANCE_PER_KM,
+                distance_km=distance_km,
+                miscellaneous_eur=miscellaneous_eur,
+                miscellaneous_per_day=MISCELLANEOUS_PER_DAY,
+                days=estimated_days,
+            ),
+            total_eur=total_eur,
+            total_usd=total_usd,
         )
-        result += food_line
 
-        # Visa
-        if visa_info:
-            if visa_total_usd > 0:
-                result += f"Visa: {visa_total_usd:.2f} USD ({visa_total_eur:.2f} EUR)\n"
-            else:
-                result += f"Visa: {visa_info}\n"
-            result += "\n"
-
-        # Other expenses
-        result += f"Other Expenses: {other_total_eur:.2f} EUR\n"
-        result += f"  - Bike maintenance: {bike_maintenance_eur:.2f} EUR "
-        result += f"({BIKE_MAINTENANCE_PER_KM:.2f} EUR/km × {distance_km} km)\n"
-        result += f"  - Miscellaneous: {miscellaneous_eur:.2f} EUR "
-        result += f"({MISCELLANEOUS_PER_DAY:.2f} EUR/day × {estimated_days} days)\n\n"
-
-        # Total
-        result += f"Total: {total_eur:.2f} EUR / {total_usd:.2f} USD"
-
-        return result
+        # Return structured data as dict
+        return output.model_dump()
 
     except Exception as e:
         logger.error(

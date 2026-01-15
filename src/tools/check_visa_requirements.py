@@ -17,8 +17,21 @@ class CheckVisaRequirementsInput(BaseModel):
     nationality: str = Field(description="Traveler's nationality or passport country")
 
 
+class CheckVisaRequirementsOutput(BaseModel):
+    """Output schema for check_visa_requirements tool."""
+
+    destination: str = Field(description="Destination country")
+    nationality: str = Field(description="Traveler's nationality")
+    visa_required: bool = Field(description="Whether a visa is required")
+    visa_type: str = Field(description="Type of visa required")
+    processing_time: str = Field(description="Processing time for visa application")
+    duration_of_stay: str = Field(description="Allowed duration of stay")
+    cost_usd: float | None = Field(default=None, description="Cost of visa in USD")
+    notes: str | None = Field(default=None, description="Additional notes about visa requirements")
+
+
 @tool(args_schema=CheckVisaRequirementsInput)
-def check_visa_requirements(destination: str, nationality: str) -> str:
+def check_visa_requirements(destination: str, nationality: str) -> dict:
     """Check visa requirements for travel to a destination country."""
     logger.info(
         "check_visa_requirements called - destination: %s, nationality: %s",
@@ -36,30 +49,20 @@ def check_visa_requirements(destination: str, nationality: str) -> str:
                 "Please check the destination country and nationality, and try again."
             )
 
-        # Extract visa information
-        visa_required = visa_data.get("visa_required", False)
-        visa_type = visa_data.get("visa_type", "Unknown")
-        processing_time = visa_data.get("processing_time", "Unknown")
-        duration_of_stay = visa_data.get("duration_of_stay", "Unknown")
-        cost_usd = visa_data.get("cost_usd")
-        notes = visa_data.get("notes")
+        # Build structured output
+        output = CheckVisaRequirementsOutput(
+            destination=destination,
+            nationality=nationality,
+            visa_required=visa_data.get("visa_required", False),
+            visa_type=visa_data.get("visa_type", "Unknown"),
+            processing_time=visa_data.get("processing_time", "Unknown"),
+            duration_of_stay=visa_data.get("duration_of_stay", "Unknown"),
+            cost_usd=visa_data.get("cost_usd"),
+            notes=visa_data.get("notes"),
+        )
 
-        # Format result string
-        result = f"Visa requirements for {nationality} travelers to {destination}:\n"
-        result += f"- Visa required: {'Yes' if visa_required else 'No'}\n"
-        result += f"- Visa type: {visa_type}\n"
-        result += f"- Processing time: {processing_time}\n"
-        result += f"- Duration of stay: {duration_of_stay}\n"
-
-        # Add cost if available
-        if cost_usd is not None:
-            result += f"- Cost: ${cost_usd} USD\n"
-
-        # Add notes if available
-        if notes:
-            result += f"- Notes: {notes}"
-
-        return result
+        # Return structured data as dict
+        return output.model_dump()
     except Exception as e:
         logger.error(
             "check_visa_requirements error - destination: %s, nationality: %s, error: %s",
