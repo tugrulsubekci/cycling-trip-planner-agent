@@ -24,6 +24,9 @@ MOCK_ELEVATION_PATH = Path(__file__).parent / "mock_elevation.json"
 # Path to the mock points of interest JSON file
 MOCK_POINTS_OF_INTEREST_PATH = Path(__file__).parent / "mock_points_of_interest.json"
 
+# Path to the mock visa requirements JSON file
+MOCK_VISA_PATH = Path(__file__).parent / "mock_visa.json"
+
 # Minimum similarity threshold for fuzzy matching (70%)
 SIMILARITY_THRESHOLD = 70
 
@@ -105,6 +108,39 @@ def normalize_month(month: str) -> str:
 
     # Return as-is if no match (will be handled by caller)
     return month_str
+
+
+def normalize_nationality(nationality: str) -> str:
+    """Normalize nationality code for comparison.
+
+    Handle variations like 'USA'/'US', 'UK'/'United Kingdom'.
+    """
+    nationality_str = nationality.strip().upper()
+
+    # Nationality code mappings (variations to standard codes)
+    nationality_mapping = {
+        "USA": "US",
+        "UNITED STATES": "US",
+        "UNITED STATES OF AMERICA": "US",
+        "UNITED KINGDOM": "UK",
+        "BRITAIN": "UK",
+        "GREAT BRITAIN": "UK",
+        "NETHERLANDS": "NL",
+        "HOLLAND": "NL",
+        "GERMANY": "DE",
+        "DEUTSCHLAND": "DE",
+        "FRANCE": "FR",
+        "TURKEY": "TR",
+        "TÜRKİYE": "TR",
+        "TURKIYE": "TR",
+    }
+
+    # Try mapping first
+    if nationality_str in nationality_mapping:
+        return nationality_mapping[nationality_str]
+
+    # Return normalized (uppercase) if no mapping found
+    return nationality_str
 
 
 def load_routes() -> list[dict[str, Any]]:
@@ -495,3 +531,74 @@ def find_points_of_interest(
         )
 
     return matching_pois
+
+
+def load_visa_requirements() -> list[dict[str, Any]]:
+    """Load visa requirements from the mock_visa.json file."""
+    try:
+        with open(MOCK_VISA_PATH, encoding="utf-8") as f:
+            data = json.load(f)
+            visa_requirements = data.get("visa_requirements", [])
+            logger.info("Loaded %d visa requirements from mock data", len(visa_requirements))
+            return visa_requirements
+    except FileNotFoundError:
+        logger.error("Mock visa requirements file not found: %s", MOCK_VISA_PATH)
+        return []
+    except json.JSONDecodeError as e:
+        logger.error("Error parsing mock visa requirements JSON: %s", str(e))
+        return []
+    except Exception as e:
+        logger.error("Error loading mock visa requirements: %s", str(e))
+        return []
+
+
+def find_visa_requirements(
+    destination: str,
+    nationality: str,
+    visa_data: list[dict[str, Any]] | None = None,
+) -> dict[str, Any] | None:
+    """Find visa requirements using fuzzy matching on destination country and nationality."""
+    if visa_data is None:
+        visa_data = load_visa_requirements()
+
+    normalized_destination = normalize_location(destination)
+    normalized_nationality = normalize_nationality(nationality)
+
+    best_match: dict[str, Any] | None = None
+    best_score = 0
+
+    for visa_entry in visa_data:
+        visa_destination = normalize_location(visa_entry.get("destination", ""))
+        visa_nationality = normalize_nationality(visa_entry.get("nationality", ""))
+
+        # Calculate similarity scores for both destination and nationality
+        destination_similarity = fuzz.ratio(normalized_destination, visa_destination)
+        nationality_similarity = fuzz.ratio(normalized_nationality, visa_nationality)
+
+        # Average similarity score
+        avg_similarity = (destination_similarity + nationality_similarity) / 2
+
+        # Both destination and nationality must have reasonable similarity
+        if (
+            destination_similarity >= SIMILARITY_THRESHOLD
+            and nationality_similarity >= SIMILARITY_THRESHOLD
+            and avg_similarity > best_score
+        ):
+            best_score = avg_similarity
+            best_match = visa_entry
+
+    if best_match:
+        logger.info(
+            "Found visa requirements match - destination: %s, nationality: %s, similarity: %.1f%%",
+            destination,
+            nationality,
+            best_score,
+        )
+    else:
+        logger.warning(
+            "No visa requirements found matching - destination: %s, nationality: %s",
+            destination,
+            nationality,
+        )
+
+    return best_match

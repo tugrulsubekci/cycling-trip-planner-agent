@@ -1,0 +1,564 @@
+{
+  "visa_requirements": [
+    {
+      "destination": "Turkey",
+      "nationality": "US",
+      "visa_required": true,
+      "visa_type": "eVisa",
+      "processing_time": "Within 24 hours",
+      "duration_of_stay": "90 days",
+      "cost_usd": 50,
+      "notes": "Apply online before travel at evisa.gov.tr"
+    },
+    {
+      "destination": "Turkey",
+      "nationality": "UK",
+      "visa_required": true,
+      "visa_type": "eVisa",
+      "processing_time": "Within 24 hours",
+      "duration_of_stay": "90 days",
+      "cost_usd": 30,
+      "notes": "Apply online before travel at evisa.gov.tr"
+    },
+    {
+      "destination": "Turkey",
+      "nationality": "DE",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "90 days",
+      "cost_usd": 0,
+      "notes": "EU citizens can stay up to 90 days within 180 days"
+    },
+    {
+      "destination": "Turkey",
+      "nationality": "FR",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "90 days",
+      "cost_usd": 0,
+      "notes": "EU citizens can stay up to 90 days within 180 days"
+    },
+    {
+      "destination": "Turkey",
+      "nationality": "NL",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "90 days",
+      "cost_usd": 0,
+      "notes": "EU citizens can stay up to 90 days within 180 days"
+    },
+    {
+      "destination": "Turkey",
+      "nationality": "TR",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "Unlimited",
+      "cost_usd": 0,
+      "notes": "Turkish citizens returning home"
+    },
+    {
+      "destination": "France",
+      "nationality": "US",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "90 days",
+      "cost_usd": 0,
+      "notes": "Schengen area - 90 days within 180 days"
+    },
+    {
+      "destination": "France",
+      "nationality": "UK",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "90 days",
+      "cost_usd": 0,
+      "notes": "Schengen area - 90 days within 180 days"
+    },
+    {
+      "destination": "France",
+      "nationality": "DE",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "Unlimited",
+      "cost_usd": 0,
+      "notes": "EU freedom of movement"
+    },
+    {
+      "destination": "France",
+      "nationality": "FR",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "Unlimited",
+      "cost_usd": 0,
+      "notes": "French citizens returning home"
+    },
+    {
+      "destination": "France",
+      "nationality": "NL",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "Unlimited",
+      "cost_usd": 0,
+      "notes": "EU freedom of movement"
+    },
+    {
+      "destination": "France",
+      "nationality": "TR",
+      "visa_required": true,
+      "visa_type": "Schengen Visa",
+      "processing_time": "15-30 days",
+      "duration_of_stay": "90 days",
+      "cost_usd": 80,
+      "notes": "Apply at French consulate or visa center"
+    },
+    {
+      "destination": "United Kingdom",
+      "nationality": "US",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "6 months",
+      "cost_usd": 0,
+      "notes": "US citizens can visit for tourism for up to 6 months"
+    },
+    {
+      "destination": "United Kingdom",
+      "nationality": "UK",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "Unlimited",
+      "cost_usd": 0,
+      "notes": "UK citizens returning home"
+    },
+    {
+      "destination": "United Kingdom",
+      "nationality": "DE",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "6 months",
+      "cost_usd": 0,
+      "notes": "EU citizens can visit for up to 6 months"
+    },
+    {
+      "destination": "United Kingdom",
+      "nationality": "FR",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "6 months",
+      "cost_usd": 0,
+      "notes": "EU citizens can visit for up to 6 months"
+    },
+    {
+      "destination": "United Kingdom",
+      "nationality": "NL",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "6 months",
+      "cost_usd": 0,
+      "notes": "EU citizens can visit for up to 6 months"
+    },
+    {
+      "destination": "United Kingdom",
+      "nationality": "TR",
+      "visa_required": true,
+      "visa_type": "Standard Visitor Visa",
+      "processing_time": "15-30 days",
+      "duration_of_stay": "6 months",
+      "cost_usd": 125,
+      "notes": "Apply online at gov.uk before travel"
+    },
+    {
+      "destination": "Netherlands",
+      "nationality": "US",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "90 days",
+      "cost_usd": 0,
+      "notes": "Schengen area - 90 days within 180 days"
+    },
+    {
+      "destination": "Netherlands",
+      "nationality": "UK",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "90 days",
+      "cost_usd": 0,
+      "notes": "Schengen area - 90 days within 180 days"
+    },
+    {
+      "destination": "Netherlands",
+      "nationality": "DE",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "Unlimited",
+      "cost_usd": 0,
+      "notes": "EU freedom of movement"
+    },
+    {
+      "destination": "Netherlands",
+      "nationality": "FR",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "Unlimited",
+      "cost_usd": 0,
+      "notes": "EU freedom of movement"
+    },
+    {
+      "destination": "Netherlands",
+      "nationality": "NL",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "Unlimited",
+      "cost_usd": 0,
+      "notes": "Dutch citizens returning home"
+    },
+    {
+      "destination": "Netherlands",
+      "nationality": "TR",
+      "visa_required": true,
+      "visa_type": "Schengen Visa",
+      "processing_time": "15-30 days",
+      "duration_of_stay": "90 days",
+      "cost_usd": 80,
+      "notes": "Apply at Dutch consulate or visa center"
+    },
+    {
+      "destination": "Belgium",
+      "nationality": "US",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "90 days",
+      "cost_usd": 0,
+      "notes": "Schengen area - 90 days within 180 days"
+    },
+    {
+      "destination": "Belgium",
+      "nationality": "UK",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "90 days",
+      "cost_usd": 0,
+      "notes": "Schengen area - 90 days within 180 days"
+    },
+    {
+      "destination": "Belgium",
+      "nationality": "DE",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "Unlimited",
+      "cost_usd": 0,
+      "notes": "EU freedom of movement"
+    },
+    {
+      "destination": "Belgium",
+      "nationality": "FR",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "Unlimited",
+      "cost_usd": 0,
+      "notes": "EU freedom of movement"
+    },
+    {
+      "destination": "Belgium",
+      "nationality": "NL",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "Unlimited",
+      "cost_usd": 0,
+      "notes": "EU freedom of movement"
+    },
+    {
+      "destination": "Belgium",
+      "nationality": "TR",
+      "visa_required": true,
+      "visa_type": "Schengen Visa",
+      "processing_time": "15-30 days",
+      "duration_of_stay": "90 days",
+      "cost_usd": 80,
+      "notes": "Apply at Belgian consulate or visa center"
+    },
+    {
+      "destination": "Denmark",
+      "nationality": "US",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "90 days",
+      "cost_usd": 0,
+      "notes": "Schengen area - 90 days within 180 days"
+    },
+    {
+      "destination": "Denmark",
+      "nationality": "UK",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "90 days",
+      "cost_usd": 0,
+      "notes": "Schengen area - 90 days within 180 days"
+    },
+    {
+      "destination": "Denmark",
+      "nationality": "DE",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "Unlimited",
+      "cost_usd": 0,
+      "notes": "EU freedom of movement"
+    },
+    {
+      "destination": "Denmark",
+      "nationality": "FR",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "Unlimited",
+      "cost_usd": 0,
+      "notes": "EU freedom of movement"
+    },
+    {
+      "destination": "Denmark",
+      "nationality": "NL",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "Unlimited",
+      "cost_usd": 0,
+      "notes": "EU freedom of movement"
+    },
+    {
+      "destination": "Denmark",
+      "nationality": "TR",
+      "visa_required": true,
+      "visa_type": "Schengen Visa",
+      "processing_time": "15-30 days",
+      "duration_of_stay": "90 days",
+      "cost_usd": 80,
+      "notes": "Apply at Danish consulate or visa center"
+    },
+    {
+      "destination": "Germany",
+      "nationality": "US",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "90 days",
+      "cost_usd": 0,
+      "notes": "Schengen area - 90 days within 180 days"
+    },
+    {
+      "destination": "Germany",
+      "nationality": "UK",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "90 days",
+      "cost_usd": 0,
+      "notes": "Schengen area - 90 days within 180 days"
+    },
+    {
+      "destination": "Germany",
+      "nationality": "DE",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "Unlimited",
+      "cost_usd": 0,
+      "notes": "German citizens returning home"
+    },
+    {
+      "destination": "Germany",
+      "nationality": "FR",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "Unlimited",
+      "cost_usd": 0,
+      "notes": "EU freedom of movement"
+    },
+    {
+      "destination": "Germany",
+      "nationality": "NL",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "Unlimited",
+      "cost_usd": 0,
+      "notes": "EU freedom of movement"
+    },
+    {
+      "destination": "Germany",
+      "nationality": "TR",
+      "visa_required": true,
+      "visa_type": "Schengen Visa",
+      "processing_time": "15-30 days",
+      "duration_of_stay": "90 days",
+      "cost_usd": 80,
+      "notes": "Apply at German consulate or visa center"
+    },
+    {
+      "destination": "Czech Republic",
+      "nationality": "US",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "90 days",
+      "cost_usd": 0,
+      "notes": "Schengen area - 90 days within 180 days"
+    },
+    {
+      "destination": "Czech Republic",
+      "nationality": "UK",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "90 days",
+      "cost_usd": 0,
+      "notes": "Schengen area - 90 days within 180 days"
+    },
+    {
+      "destination": "Czech Republic",
+      "nationality": "DE",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "Unlimited",
+      "cost_usd": 0,
+      "notes": "EU freedom of movement"
+    },
+    {
+      "destination": "Czech Republic",
+      "nationality": "FR",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "Unlimited",
+      "cost_usd": 0,
+      "notes": "EU freedom of movement"
+    },
+    {
+      "destination": "Czech Republic",
+      "nationality": "NL",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "Unlimited",
+      "cost_usd": 0,
+      "notes": "EU freedom of movement"
+    },
+    {
+      "destination": "Czech Republic",
+      "nationality": "TR",
+      "visa_required": true,
+      "visa_type": "Schengen Visa",
+      "processing_time": "15-30 days",
+      "duration_of_stay": "90 days",
+      "cost_usd": 80,
+      "notes": "Apply at Czech consulate or visa center"
+    },
+    {
+      "destination": "Greece",
+      "nationality": "US",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "90 days",
+      "cost_usd": 0,
+      "notes": "Schengen area - 90 days within 180 days"
+    },
+    {
+      "destination": "Greece",
+      "nationality": "UK",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "90 days",
+      "cost_usd": 0,
+      "notes": "Schengen area - 90 days within 180 days"
+    },
+    {
+      "destination": "Greece",
+      "nationality": "DE",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "Unlimited",
+      "cost_usd": 0,
+      "notes": "EU freedom of movement"
+    },
+    {
+      "destination": "Greece",
+      "nationality": "TR",
+      "visa_required": true,
+      "visa_type": "Schengen Visa",
+      "processing_time": "15-30 days",
+      "duration_of_stay": "90 days",
+      "cost_usd": 80,
+      "notes": "Apply at Greek consulate or visa center"
+    },
+    {
+      "destination": "Bulgaria",
+      "nationality": "US",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "90 days",
+      "cost_usd": 0,
+      "notes": "90 days within 180 days"
+    },
+    {
+      "destination": "Bulgaria",
+      "nationality": "UK",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "90 days",
+      "cost_usd": 0,
+      "notes": "90 days within 180 days"
+    },
+    {
+      "destination": "Bulgaria",
+      "nationality": "DE",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "Unlimited",
+      "cost_usd": 0,
+      "notes": "EU freedom of movement"
+    },
+    {
+      "destination": "Bulgaria",
+      "nationality": "TR",
+      "visa_required": false,
+      "visa_type": "No Visa Required",
+      "processing_time": "N/A",
+      "duration_of_stay": "90 days",
+      "cost_usd": 0,
+      "notes": "90 days within 180 days"
+    }
+  ]
+}
