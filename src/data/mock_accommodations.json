@@ -1,0 +1,814 @@
+{
+  "accommodations": [
+    {
+      "location": "Istanbul",
+      "name": "Sultanahmet Hostel",
+      "type": "hostel",
+      "price_per_night": 25,
+      "currency": "EUR",
+      "rating": 4.2,
+      "description": "Budget-friendly hostel in the historic Sultanahmet district, close to major attractions"
+    },
+    {
+      "location": "Istanbul",
+      "name": "Grand Bazaar Hotel",
+      "type": "hotel",
+      "price_per_night": 85,
+      "currency": "EUR",
+      "rating": 4.5,
+      "description": "Comfortable hotel near the Grand Bazaar, perfect for exploring the old city"
+    },
+    {
+      "location": "Istanbul",
+      "name": "Bosphorus Camping",
+      "type": "camping",
+      "price_per_night": 15,
+      "currency": "EUR",
+      "rating": 3.8,
+      "description": "Scenic campsite along the Bosphorus with basic facilities"
+    },
+    {
+      "location": "Izmit",
+      "name": "Izmit City Hostel",
+      "type": "hostel",
+      "price_per_night": 20,
+      "currency": "EUR",
+      "rating": 3.9,
+      "description": "Simple hostel in the city center, good for cyclists"
+    },
+    {
+      "location": "Izmit",
+      "name": "Gulf Hotel",
+      "type": "hotel",
+      "price_per_night": 60,
+      "currency": "EUR",
+      "rating": 4.1,
+      "description": "Modern hotel with sea views, bike storage available"
+    },
+    {
+      "location": "Izmit",
+      "name": "Izmit Bay Camping",
+      "type": "camping",
+      "price_per_night": 13,
+      "currency": "EUR",
+      "rating": 3.8,
+      "description": "Campsite near Izmit Bay with basic facilities"
+    },
+    {
+      "location": "Sakarya",
+      "name": "Sakarya Riverside Camping",
+      "type": "camping",
+      "price_per_night": 12,
+      "currency": "EUR",
+      "rating": 3.7,
+      "description": "Peaceful riverside campsite with shower facilities"
+    },
+    {
+      "location": "Sakarya",
+      "name": "Sakarya Guesthouse",
+      "type": "hostel",
+      "price_per_night": 18,
+      "currency": "EUR",
+      "rating": 3.6,
+      "description": "Family-run guesthouse, welcoming to cyclists"
+    },
+    {
+      "location": "Sakarya",
+      "name": "Sakarya City Hotel",
+      "type": "hotel",
+      "price_per_night": 58,
+      "currency": "EUR",
+      "rating": 3.9,
+      "description": "Comfortable hotel in the city center"
+    },
+    {
+      "location": "Bolu",
+      "name": "Bolu Mountain Hostel",
+      "type": "hostel",
+      "price_per_night": 22,
+      "currency": "EUR",
+      "rating": 4.0,
+      "description": "Cozy hostel in the mountain town, great for rest days"
+    },
+    {
+      "location": "Bolu",
+      "name": "Forest Camping Bolu",
+      "type": "camping",
+      "price_per_night": 14,
+      "currency": "EUR",
+      "rating": 4.2,
+      "description": "Beautiful forest campsite with hiking trails nearby"
+    },
+    {
+      "location": "Bolu",
+      "name": "Bolu Mountain Hotel",
+      "type": "hotel",
+      "price_per_night": 68,
+      "currency": "EUR",
+      "rating": 4.1,
+      "description": "Mountain hotel with scenic views, perfect for cyclists"
+    },
+    {
+      "location": "Ankara",
+      "name": "Ankara Backpackers",
+      "type": "hostel",
+      "price_per_night": 24,
+      "currency": "EUR",
+      "rating": 4.3,
+      "description": "Popular hostel in the capital, social atmosphere"
+    },
+    {
+      "location": "Ankara",
+      "name": "Capital Hotel",
+      "type": "hotel",
+      "price_per_night": 75,
+      "currency": "EUR",
+      "rating": 4.4,
+      "description": "Comfortable hotel in the city center, bike-friendly"
+    },
+    {
+      "location": "Ankara",
+      "name": "Ankara City Camping",
+      "type": "camping",
+      "price_per_night": 16,
+      "currency": "EUR",
+      "rating": 3.9,
+      "description": "City campsite on the outskirts, good for budget travelers"
+    },
+    {
+      "location": "Izmir",
+      "name": "Aegean Coast Hostel",
+      "type": "hostel",
+      "price_per_night": 23,
+      "currency": "EUR",
+      "rating": 4.4,
+      "description": "Beachside hostel with great views of the Aegean Sea"
+    },
+    {
+      "location": "Izmir",
+      "name": "Izmir Marina Hotel",
+      "type": "hotel",
+      "price_per_night": 90,
+      "currency": "EUR",
+      "rating": 4.6,
+      "description": "Luxury hotel by the marina, excellent facilities"
+    },
+    {
+      "location": "Izmir",
+      "name": "Coastal Camping Izmir",
+      "type": "camping",
+      "price_per_night": 16,
+      "currency": "EUR",
+      "rating": 4.0,
+      "description": "Seaside campsite with direct beach access"
+    },
+    {
+      "location": "Aydin",
+      "name": "Aydin Budget Hostel",
+      "type": "hostel",
+      "price_per_night": 19,
+      "currency": "EUR",
+      "rating": 3.8,
+      "description": "Simple and affordable hostel for budget travelers"
+    },
+    {
+      "location": "Aydin",
+      "name": "Aydin City Hotel",
+      "type": "hotel",
+      "price_per_night": 55,
+      "currency": "EUR",
+      "rating": 4.0,
+      "description": "Comfortable mid-range hotel in the city center"
+    },
+    {
+      "location": "Aydin",
+      "name": "Aydin Countryside Camping",
+      "type": "camping",
+      "price_per_night": 14,
+      "currency": "EUR",
+      "rating": 3.9,
+      "description": "Peaceful countryside campsite near Aydin"
+    },
+    {
+      "location": "Denizli",
+      "name": "Pamukkale Hostel",
+      "type": "hostel",
+      "price_per_night": 21,
+      "currency": "EUR",
+      "rating": 4.1,
+      "description": "Hostel near Pamukkale, popular with tourists"
+    },
+    {
+      "location": "Denizli",
+      "name": "Thermal Springs Camping",
+      "type": "camping",
+      "price_per_night": 15,
+      "currency": "EUR",
+      "rating": 4.3,
+      "description": "Campsite near the famous thermal springs"
+    },
+    {
+      "location": "Denizli",
+      "name": "Pamukkale Hotel",
+      "type": "hotel",
+      "price_per_night": 72,
+      "currency": "EUR",
+      "rating": 4.2,
+      "description": "Hotel near Pamukkale thermal pools"
+    },
+    {
+      "location": "Burdur",
+      "name": "Burdur Lake Hostel",
+      "type": "hostel",
+      "price_per_night": 20,
+      "currency": "EUR",
+      "rating": 3.9,
+      "description": "Quiet hostel near the lake, peaceful setting"
+    },
+    {
+      "location": "Burdur",
+      "name": "Lakeside Camping",
+      "type": "camping",
+      "price_per_night": 13,
+      "currency": "EUR",
+      "rating": 4.1,
+      "description": "Beautiful lakeside campsite with stunning views"
+    },
+    {
+      "location": "Burdur",
+      "name": "Burdur Lake Hotel",
+      "type": "hotel",
+      "price_per_night": 62,
+      "currency": "EUR",
+      "rating": 4.0,
+      "description": "Hotel with views of Burdur Lake"
+    },
+    {
+      "location": "Antalya",
+      "name": "Old Town Hostel",
+      "type": "hostel",
+      "price_per_night": 26,
+      "currency": "EUR",
+      "rating": 4.5,
+      "description": "Charming hostel in Antalya's historic old town"
+    },
+    {
+      "location": "Antalya",
+      "name": "Mediterranean Resort Hotel",
+      "type": "hotel",
+      "price_per_night": 95,
+      "currency": "EUR",
+      "rating": 4.7,
+      "description": "Luxury resort hotel on the Mediterranean coast"
+    },
+    {
+      "location": "Antalya",
+      "name": "Beach Camping Antalya",
+      "type": "camping",
+      "price_per_night": 18,
+      "currency": "EUR",
+      "rating": 4.2,
+      "description": "Beachfront campsite with excellent facilities"
+    },
+    {
+      "location": "Paris",
+      "name": "Montmartre Hostel",
+      "type": "hostel",
+      "price_per_night": 35,
+      "currency": "EUR",
+      "rating": 4.3,
+      "description": "Popular hostel in the artistic Montmartre district"
+    },
+    {
+      "location": "Paris",
+      "name": "Champs-Elysees Hotel",
+      "type": "hotel",
+      "price_per_night": 150,
+      "currency": "EUR",
+      "rating": 4.6,
+      "description": "Elegant hotel near the famous Champs-Elysees"
+    },
+    {
+      "location": "Paris",
+      "name": "Bois de Vincennes Camping",
+      "type": "camping",
+      "price_per_night": 25,
+      "currency": "EUR",
+      "rating": 4.0,
+      "description": "City campsite in the Bois de Vincennes park"
+    },
+    {
+      "location": "Amiens",
+      "name": "Amiens Cathedral Hostel",
+      "type": "hostel",
+      "price_per_night": 28,
+      "currency": "EUR",
+      "rating": 4.1,
+      "description": "Hostel near the famous Amiens Cathedral"
+    },
+    {
+      "location": "Amiens",
+      "name": "Amiens City Hotel",
+      "type": "hotel",
+      "price_per_night": 70,
+      "currency": "EUR",
+      "rating": 4.2,
+      "description": "Comfortable hotel in the historic city center"
+    },
+    {
+      "location": "Amiens",
+      "name": "Somme River Camping",
+      "type": "camping",
+      "price_per_night": 22,
+      "currency": "EUR",
+      "rating": 3.9,
+      "description": "Riverside campsite near Amiens"
+    },
+    {
+      "location": "Calais",
+      "name": "Channel Port Hostel",
+      "type": "hostel",
+      "price_per_night": 30,
+      "currency": "EUR",
+      "rating": 4.0,
+      "description": "Hostel near the ferry port, convenient for travelers"
+    },
+    {
+      "location": "Calais",
+      "name": "Calais Beach Hotel",
+      "type": "hotel",
+      "price_per_night": 80,
+      "currency": "EUR",
+      "rating": 4.3,
+      "description": "Beachfront hotel with views of the English Channel"
+    },
+    {
+      "location": "Calais",
+      "name": "Channel Coast Camping",
+      "type": "camping",
+      "price_per_night": 24,
+      "currency": "EUR",
+      "rating": 4.0,
+      "description": "Coastal campsite with views of the English Channel"
+    },
+    {
+      "location": "Dover",
+      "name": "White Cliffs Hostel",
+      "type": "hostel",
+      "price_per_night": 32,
+      "currency": "GBP",
+      "rating": 4.2,
+      "description": "Hostel with views of the famous White Cliffs"
+    },
+    {
+      "location": "Dover",
+      "name": "Dover Castle Hotel",
+      "type": "hotel",
+      "price_per_night": 90,
+      "currency": "GBP",
+      "rating": 4.4,
+      "description": "Historic hotel near Dover Castle"
+    },
+    {
+      "location": "Dover",
+      "name": "Coastal Camping Dover",
+      "type": "camping",
+      "price_per_night": 20,
+      "currency": "GBP",
+      "rating": 3.9,
+      "description": "Campsite with coastal views and basic facilities"
+    },
+    {
+      "location": "Canterbury",
+      "name": "Canterbury Cathedral Hostel",
+      "type": "hostel",
+      "price_per_night": 30,
+      "currency": "GBP",
+      "rating": 4.4,
+      "description": "Hostel in the heart of historic Canterbury"
+    },
+    {
+      "location": "Canterbury",
+      "name": "Canterbury Inn",
+      "type": "hotel",
+      "price_per_night": 85,
+      "currency": "GBP",
+      "rating": 4.5,
+      "description": "Traditional English inn with character"
+    },
+    {
+      "location": "Canterbury",
+      "name": "Canterbury Countryside Camping",
+      "type": "camping",
+      "price_per_night": 22,
+      "currency": "GBP",
+      "rating": 4.0,
+      "description": "Peaceful countryside campsite near Canterbury"
+    },
+    {
+      "location": "London",
+      "name": "King's Cross Hostel",
+      "type": "hostel",
+      "price_per_night": 40,
+      "currency": "GBP",
+      "rating": 4.3,
+      "description": "Modern hostel near King's Cross station"
+    },
+    {
+      "location": "London",
+      "name": "Thames View Hotel",
+      "type": "hotel",
+      "price_per_night": 120,
+      "currency": "GBP",
+      "rating": 4.6,
+      "description": "Luxury hotel with views of the River Thames"
+    },
+    {
+      "location": "London",
+      "name": "Crystal Palace Camping",
+      "type": "camping",
+      "price_per_night": 28,
+      "currency": "GBP",
+      "rating": 3.8,
+      "description": "City campsite in Crystal Palace area"
+    },
+    {
+      "location": "Amsterdam",
+      "name": "Canal View Hostel",
+      "type": "hostel",
+      "price_per_night": 38,
+      "currency": "EUR",
+      "rating": 4.5,
+      "description": "Popular hostel with canal views in the city center"
+    },
+    {
+      "location": "Amsterdam",
+      "name": "Dam Square Hotel",
+      "type": "hotel",
+      "price_per_night": 130,
+      "currency": "EUR",
+      "rating": 4.7,
+      "description": "Luxury hotel near Dam Square, bike-friendly"
+    },
+    {
+      "location": "Amsterdam",
+      "name": "Vondelpark Camping",
+      "type": "camping",
+      "price_per_night": 30,
+      "currency": "EUR",
+      "rating": 4.1,
+      "description": "Campsite near Vondelpark, Amsterdam's largest park"
+    },
+    {
+      "location": "Utrecht",
+      "name": "Utrecht Central Hostel",
+      "type": "hostel",
+      "price_per_night": 32,
+      "currency": "EUR",
+      "rating": 4.2,
+      "description": "Hostel near Utrecht Central Station"
+    },
+    {
+      "location": "Utrecht",
+      "name": "Dom Tower Hotel",
+      "type": "hotel",
+      "price_per_night": 95,
+      "currency": "EUR",
+      "rating": 4.4,
+      "description": "Hotel near the iconic Dom Tower"
+    },
+    {
+      "location": "Utrecht",
+      "name": "Utrecht Canal Camping",
+      "type": "camping",
+      "price_per_night": 28,
+      "currency": "EUR",
+      "rating": 4.0,
+      "description": "Campsite near Utrecht's beautiful canals"
+    },
+    {
+      "location": "Breda",
+      "name": "Breda City Hostel",
+      "type": "hostel",
+      "price_per_night": 29,
+      "currency": "EUR",
+      "rating": 4.0,
+      "description": "Comfortable hostel in the historic city center"
+    },
+    {
+      "location": "Breda",
+      "name": "Breda Castle Hotel",
+      "type": "hotel",
+      "price_per_night": 88,
+      "currency": "EUR",
+      "rating": 4.3,
+      "description": "Hotel near Breda Castle, excellent location"
+    },
+    {
+      "location": "Breda",
+      "name": "Breda Park Camping",
+      "type": "camping",
+      "price_per_night": 26,
+      "currency": "EUR",
+      "rating": 3.9,
+      "description": "Campsite in a park setting near Breda"
+    },
+    {
+      "location": "Antwerp",
+      "name": "Antwerp Central Hostel",
+      "type": "hostel",
+      "price_per_night": 34,
+      "currency": "EUR",
+      "rating": 4.4,
+      "description": "Hostel near the stunning Antwerp Central Station"
+    },
+    {
+      "location": "Antwerp",
+      "name": "Diamond District Hotel",
+      "type": "hotel",
+      "price_per_night": 110,
+      "currency": "EUR",
+      "rating": 4.5,
+      "description": "Luxury hotel in Antwerp's famous diamond district"
+    },
+    {
+      "location": "Antwerp",
+      "name": "Scheldt River Camping",
+      "type": "camping",
+      "price_per_night": 27,
+      "currency": "EUR",
+      "rating": 4.0,
+      "description": "Riverside campsite along the Scheldt River"
+    },
+    {
+      "location": "Brussels",
+      "name": "Grand Place Hostel",
+      "type": "hostel",
+      "price_per_night": 36,
+      "currency": "EUR",
+      "rating": 4.3,
+      "description": "Hostel near the beautiful Grand Place square"
+    },
+    {
+      "location": "Brussels",
+      "name": "EU Quarter Hotel",
+      "type": "hotel",
+      "price_per_night": 125,
+      "currency": "EUR",
+      "rating": 4.6,
+      "description": "Modern hotel in the European Quarter"
+    },
+    {
+      "location": "Brussels",
+      "name": "Brussels Camping",
+      "type": "camping",
+      "price_per_night": 22,
+      "currency": "EUR",
+      "rating": 3.7,
+      "description": "Basic campsite on the outskirts of Brussels"
+    },
+    {
+      "location": "Arnhem",
+      "name": "Arnhem Bridge Hostel",
+      "type": "hostel",
+      "price_per_night": 31,
+      "currency": "EUR",
+      "rating": 4.1,
+      "description": "Hostel near the historic Arnhem Bridge"
+    },
+    {
+      "location": "Arnhem",
+      "name": "Arnhem City Hotel",
+      "type": "hotel",
+      "price_per_night": 85,
+      "currency": "EUR",
+      "rating": 4.2,
+      "description": "Comfortable hotel in the city center"
+    },
+    {
+      "location": "Arnhem",
+      "name": "Arnhem Forest Camping",
+      "type": "camping",
+      "price_per_night": 25,
+      "currency": "EUR",
+      "rating": 4.1,
+      "description": "Campsite in the beautiful Arnhem forest area"
+    },
+    {
+      "location": "Osnabruck",
+      "name": "Osnabruck Peace Hostel",
+      "type": "hostel",
+      "price_per_night": 28,
+      "currency": "EUR",
+      "rating": 4.0,
+      "description": "Hostel in the city of peace, welcoming atmosphere"
+    },
+    {
+      "location": "Osnabruck",
+      "name": "Osnabruck Cathedral Hotel",
+      "type": "hotel",
+      "price_per_night": 78,
+      "currency": "EUR",
+      "rating": 4.3,
+      "description": "Hotel near Osnabruck Cathedral"
+    },
+    {
+      "location": "Osnabruck",
+      "name": "Osnabruck Peace Camping",
+      "type": "camping",
+      "price_per_night": 23,
+      "currency": "EUR",
+      "rating": 3.9,
+      "description": "Peaceful campsite in the city of peace"
+    },
+    {
+      "location": "Hamburg",
+      "name": "Hamburg Port Hostel",
+      "type": "hostel",
+      "price_per_night": 35,
+      "currency": "EUR",
+      "rating": 4.4,
+      "description": "Hostel near the famous Hamburg port"
+    },
+    {
+      "location": "Hamburg",
+      "name": "Elbe River Hotel",
+      "type": "hotel",
+      "price_per_night": 115,
+      "currency": "EUR",
+      "rating": 4.6,
+      "description": "Luxury hotel with views of the Elbe River"
+    },
+    {
+      "location": "Hamburg",
+      "name": "Hamburg Harbor Camping",
+      "type": "camping",
+      "price_per_night": 24,
+      "currency": "EUR",
+      "rating": 3.9,
+      "description": "Campsite near the harbor, good facilities"
+    },
+    {
+      "location": "Lubeck",
+      "name": "Lubeck Old Town Hostel",
+      "type": "hostel",
+      "price_per_night": 33,
+      "currency": "EUR",
+      "rating": 4.3,
+      "description": "Hostel in Lubeck's beautiful old town, UNESCO site"
+    },
+    {
+      "location": "Lubeck",
+      "name": "Holstentor Hotel",
+      "type": "hotel",
+      "price_per_night": 100,
+      "currency": "EUR",
+      "rating": 4.5,
+      "description": "Historic hotel near the famous Holstentor gate"
+    },
+    {
+      "location": "Lubeck",
+      "name": "Baltic Coast Camping",
+      "type": "camping",
+      "price_per_night": 27,
+      "currency": "EUR",
+      "rating": 4.1,
+      "description": "Campsite near the Baltic Sea coast"
+    },
+    {
+      "location": "Copenhagen",
+      "name": "Nyhavn Hostel",
+      "type": "hostel",
+      "price_per_night": 42,
+      "currency": "DKK",
+      "rating": 4.5,
+      "description": "Hostel in the colorful Nyhavn district"
+    },
+    {
+      "location": "Copenhagen",
+      "name": "Tivoli Gardens Hotel",
+      "type": "hotel",
+      "price_per_night": 140,
+      "currency": "DKK",
+      "rating": 4.7,
+      "description": "Luxury hotel near Tivoli Gardens, very bike-friendly"
+    },
+    {
+      "location": "Copenhagen",
+      "name": "Copenhagen City Camping",
+      "type": "camping",
+      "price_per_night": 35,
+      "currency": "DKK",
+      "rating": 4.2,
+      "description": "Well-equipped city campsite, popular with cyclists"
+    },
+    {
+      "location": "Berlin",
+      "name": "Berlin Wall Hostel",
+      "type": "hostel",
+      "price_per_night": 37,
+      "currency": "EUR",
+      "rating": 4.4,
+      "description": "Hostel near the Berlin Wall memorial"
+    },
+    {
+      "location": "Berlin",
+      "name": "Brandenburg Gate Hotel",
+      "type": "hotel",
+      "price_per_night": 135,
+      "currency": "EUR",
+      "rating": 4.7,
+      "description": "Luxury hotel near Brandenburg Gate"
+    },
+    {
+      "location": "Berlin",
+      "name": "Tiergarten Camping",
+      "type": "camping",
+      "price_per_night": 26,
+      "currency": "EUR",
+      "rating": 4.0,
+      "description": "Campsite in the Tiergarten park area"
+    },
+    {
+      "location": "Dresden",
+      "name": "Dresden Old Town Hostel",
+      "type": "hostel",
+      "price_per_night": 30,
+      "currency": "EUR",
+      "rating": 4.3,
+      "description": "Hostel in Dresden's beautifully restored old town"
+    },
+    {
+      "location": "Dresden",
+      "name": "Elbe Palace Hotel",
+      "type": "hotel",
+      "price_per_night": 105,
+      "currency": "EUR",
+      "rating": 4.5,
+      "description": "Elegant hotel with views of the Elbe River"
+    },
+    {
+      "location": "Dresden",
+      "name": "Dresden Riverside Camping",
+      "type": "camping",
+      "price_per_night": 23,
+      "currency": "EUR",
+      "rating": 3.9,
+      "description": "Riverside campsite with good cycling access"
+    },
+    {
+      "location": "Usti nad Labem",
+      "name": "Usti City Hostel",
+      "type": "hostel",
+      "price_per_night": 22,
+      "currency": "CZK",
+      "rating": 3.8,
+      "description": "Simple hostel in the industrial city"
+    },
+    {
+      "location": "Usti nad Labem",
+      "name": "Elbe View Hotel",
+      "type": "hotel",
+      "price_per_night": 65,
+      "currency": "CZK",
+      "rating": 4.1,
+      "description": "Hotel with views of the Elbe River valley"
+    },
+    {
+      "location": "Usti nad Labem",
+      "name": "Elbe Valley Camping",
+      "type": "camping",
+      "price_per_night": 18,
+      "currency": "CZK",
+      "rating": 3.8,
+      "description": "Campsite in the Elbe River valley"
+    },
+    {
+      "location": "Prague",
+      "name": "Prague Castle Hostel",
+      "type": "hostel",
+      "price_per_night": 32,
+      "currency": "CZK",
+      "rating": 4.5,
+      "description": "Popular hostel near Prague Castle"
+    },
+    {
+      "location": "Prague",
+      "name": "Charles Bridge Hotel",
+      "type": "hotel",
+      "price_per_night": 120,
+      "currency": "CZK",
+      "rating": 4.7,
+      "description": "Luxury hotel near the famous Charles Bridge"
+    },
+    {
+      "location": "Prague",
+      "name": "Vltava Camping",
+      "type": "camping",
+      "price_per_night": 20,
+      "currency": "CZK",
+      "rating": 4.1,
+      "description": "Campsite along the Vltava River, close to city center"
+    }
+  ]
+}

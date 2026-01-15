@@ -5,6 +5,8 @@ import logging
 from langchain.tools import tool
 from pydantic import BaseModel, Field
 
+from src.data.mock_data import find_accommodations
+
 logger: logging.Logger = logging.getLogger(__name__)
 
 
@@ -28,13 +30,43 @@ def find_accommodation(location: str, accommodation_type: str = "all") -> str:
     )
 
     try:
-        result = (
-            f"Accommodation options near {location}:\n"
-            f"- Type: {accommodation_type}\n"
-            "- Results: [To be searched]\n"
-            "Note: This is a placeholder. Actual implementation pending."
+        # Find accommodations using fuzzy matching
+        accommodations = find_accommodations(location, accommodation_type)
+
+        if not accommodations:
+            type_info = f" (type: {accommodation_type})" if accommodation_type != "all" else ""
+            return (
+                f"No accommodations found near {location}{type_info}.\n"
+                "Please check the location name and try again."
+            )
+
+        # Build result string
+        type_display = (
+            accommodation_type.capitalize() if accommodation_type != "all" else "All types"
         )
-        return result
+        result = f"Accommodation options near {location}:\n"
+        result += f"- Filter: {type_display}\n"
+        result += f"- Found: {len(accommodations)} option(s)\n\n"
+
+        # Format each accommodation
+        for i, acc in enumerate(accommodations, 1):
+            acc_name = acc.get("name", "Unknown")
+            acc_type = acc.get("type", "unknown").capitalize()
+            price = acc.get("price_per_night", 0)
+            currency = acc.get("currency", "EUR")
+            rating = acc.get("rating")
+            description = acc.get("description", "")
+
+            result += f"{i}. {acc_name}\n"
+            result += f"   Type: {acc_type}\n"
+            result += f"   Price: {price} {currency}/night\n"
+            if rating:
+                result += f"   Rating: {rating}/5.0\n"
+            if description:
+                result += f"   Description: {description}\n"
+            result += "\n"
+
+        return result.strip()
     except Exception as e:
         logger.error(
             "find_accommodation error - location: %s, accommodation_type: %s, error: %s",
