@@ -5,6 +5,8 @@ import logging
 from langchain.tools import tool
 from pydantic import BaseModel, Field
 
+from src.data.mock_data import find_weather
+
 logger: logging.Logger = logging.getLogger(__name__)
 
 
@@ -25,13 +27,32 @@ def get_weather(location: str, month: str) -> str:
     )
 
     try:
-        result = (
-            f"Weather for {location} in {month}:\n"
-            "- Temperature: [To be retrieved]\n"
-            "- Precipitation: [To be retrieved]\n"
-            "- Conditions: [To be retrieved]\n"
-            "Note: This is a placeholder. Actual implementation pending."
-        )
+        # Find weather data using fuzzy matching
+        weather_data = find_weather(location, month)
+
+        if not weather_data:
+            return (
+                f"No weather data found for {location} in {month}.\n"
+                "Please check the location name and month, and try again."
+            )
+
+        # Extract weather information
+        avg_temp = weather_data.get("avg_temperature_c", 0)
+        min_temp = weather_data.get("min_temperature_c", 0)
+        max_temp = weather_data.get("max_temperature_c", 0)
+        precipitation = weather_data.get("precipitation_mm", 0)
+        rainy_days = weather_data.get("rainy_days", 0)
+        conditions = weather_data.get("conditions", "Unknown")
+        suitability = weather_data.get("cycling_suitability", "Unknown")
+
+        # Format result string
+        result = f"Weather for {location} in {month}:\n"
+        result += f"- Average Temperature: {avg_temp}°C (min: {min_temp}°C, max: {max_temp}°C)\n"
+        result += f"- Precipitation: {precipitation}mm\n"
+        result += f"- Rainy Days: {rainy_days} days\n"
+        result += f"- Conditions: {conditions}\n"
+        result += f"- Cycling Suitability: {suitability}"
+
         return result
     except Exception as e:
         logger.error(

@@ -15,6 +15,9 @@ MOCK_ROUTES_PATH = Path(__file__).parent / "mock_routes.json"
 # Path to the mock accommodations JSON file
 MOCK_ACCOMMODATIONS_PATH = Path(__file__).parent / "mock_accommodations.json"
 
+# Path to the mock weather JSON file
+MOCK_WEATHER_PATH = Path(__file__).parent / "mock_weather.json"
+
 # Minimum similarity threshold for fuzzy matching (70%)
 SIMILARITY_THRESHOLD = 70
 
@@ -22,6 +25,80 @@ SIMILARITY_THRESHOLD = 70
 def normalize_location(location: str) -> str:
     """Normalize location name for comparison (lowercase only)."""
     return location.lower().strip()
+
+
+def normalize_month(month: str) -> str:
+    """Normalize month name to full month name (e.g., '1' -> 'January', 'Jan' -> 'January')."""
+    month_str = month.strip()
+
+    # Month name mappings
+    month_names = {
+        "january": "January",
+        "february": "February",
+        "march": "March",
+        "april": "April",
+        "may": "May",
+        "june": "June",
+        "july": "July",
+        "august": "August",
+        "september": "September",
+        "october": "October",
+        "november": "November",
+        "december": "December",
+    }
+
+    # Month abbreviation mappings
+    month_abbrevs = {
+        "jan": "January",
+        "feb": "February",
+        "mar": "March",
+        "apr": "April",
+        "may": "May",
+        "jun": "June",
+        "jul": "July",
+        "aug": "August",
+        "sep": "September",
+        "oct": "October",
+        "nov": "November",
+        "dec": "December",
+    }
+
+    # Month number mappings
+    month_numbers = {
+        "1": "January",
+        "2": "February",
+        "3": "March",
+        "4": "April",
+        "5": "May",
+        "6": "June",
+        "7": "July",
+        "8": "August",
+        "9": "September",
+        "10": "October",
+        "11": "November",
+        "12": "December",
+    }
+
+    month_lower = month_str.lower()
+
+    # Try full name first
+    if month_lower in month_names:
+        return month_names[month_lower]
+
+    # Try abbreviation
+    if month_lower in month_abbrevs:
+        return month_abbrevs[month_lower]
+
+    # Try number
+    if month_lower in month_numbers:
+        return month_numbers[month_lower]
+
+    # If already a valid month name (case-insensitive), return capitalized
+    if month_lower in month_names.values():
+        return month_str.capitalize()
+
+    # Return as-is if no match (will be handled by caller)
+    return month_str
 
 
 def load_routes() -> list[dict[str, Any]]:
@@ -182,3 +259,71 @@ def find_accommodations(
         )
 
     return matching_accommodations
+
+
+def load_weather() -> list[dict[str, Any]]:
+    """Load weather data from the mock_weather.json file."""
+    try:
+        with open(MOCK_WEATHER_PATH, encoding="utf-8") as f:
+            data = json.load(f)
+            weather = data.get("weather", [])
+            logger.info("Loaded %d weather entries from mock data", len(weather))
+            return weather
+    except FileNotFoundError:
+        logger.error("Mock weather file not found: %s", MOCK_WEATHER_PATH)
+        return []
+    except json.JSONDecodeError as e:
+        logger.error("Error parsing mock weather JSON: %s", str(e))
+        return []
+    except Exception as e:
+        logger.error("Error loading mock weather: %s", str(e))
+        return []
+
+
+def find_weather(
+    location: str,
+    month: str,
+    weather_data: list[dict[str, Any]] | None = None,
+) -> dict[str, Any] | None:
+    """Find weather data using fuzzy matching on location name and month."""
+    if weather_data is None:
+        weather_data = load_weather()
+
+    normalized_location = normalize_location(location)
+    normalized_month = normalize_month(month)
+
+    best_match: dict[str, Any] | None = None
+    best_score = 0
+
+    for weather_entry in weather_data:
+        weather_location = normalize_location(weather_entry.get("location", ""))
+        weather_month = weather_entry.get("month", "")
+
+        # Calculate similarity score for location
+        location_similarity = fuzz.ratio(normalized_location, weather_location)
+
+        # Check if month matches (exact match after normalization)
+        month_matches = normalize_month(weather_month) == normalized_month
+
+        # Both location and month must match
+        if location_similarity >= SIMILARITY_THRESHOLD and month_matches:
+            # Use location similarity as the score
+            if location_similarity > best_score:
+                best_score = location_similarity
+                best_match = weather_entry
+
+    if best_match:
+        logger.info(
+            "Found weather match - location: %s, month: %s, similarity: %.1f%%",
+            location,
+            month,
+            best_score,
+        )
+    else:
+        logger.warning(
+            "No weather found matching - location: %s, month: %s",
+            location,
+            month,
+        )
+
+    return best_match
