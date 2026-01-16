@@ -1,28 +1,34 @@
 """FastAPI routes for Cycling Trip Planner Agent."""
 
 import logging
-import os
 import uuid
 
-from dotenv import load_dotenv
-from fastapi import APIRouter, HTTPException
-from langchain_anthropic import ChatAnthropic
-from pydantic import BaseModel, Field, SecretStr
+from fastapi import APIRouter, Depends, HTTPException
+from pydantic import BaseModel, Field
 
 from src.agent.planner import CyclingTripPlannerAgent
+from src.config import get_settings
+from src.logging_config import setup_logging
 
-# Load environment variables from .env file
-load_dotenv()
+# Get settings and configure logging
+settings = get_settings()
+setup_logging(level=settings.log_level)
 
-# Configure logging
 logger: logging.Logger = logging.getLogger(__name__)
 
 # Create router
 router: APIRouter = APIRouter()
 
-# Create agent instance once at module level
-# Agent is stateless - state is managed by checkpointer via thread_id
-agent = CyclingTripPlannerAgent()
+# Agent dependency - creates agent instance per request or reuses singleton
+_agent_instance: CyclingTripPlannerAgent | None = None
+
+
+def get_agent() -> CyclingTripPlannerAgent:
+    """Get or create agent instance (singleton pattern for dependency injection)."""
+    global _agent_instance
+    if _agent_instance is None:
+        _agent_instance = CyclingTripPlannerAgent()
+    return _agent_instance
 
 
 class ChatRequest(BaseModel):
@@ -49,53 +55,48 @@ async def root() -> dict[str, str]:
 
 
 @router.get("/health")
-async def health() -> dict[str, str]:
-    """Health check endpoint."""
-    return {"status": "ok"}
-
-
-@router.get("/hello-ai")
-async def hello_ai() -> dict[str, str]:
-    """Hello AI endpoint using Anthropic API via LangChain."""
-    # Check if API key is set
-    api_key: str | None = os.getenv("ANTHROPIC_API_KEY")
-    if not api_key:
-        logger.error("ANTHROPIC_API_KEY environment variable is not set")
-        raise HTTPException(
-            status_code=500,
-            detail="ANTHROPIC_API_KEY environment variable is not set",
-        )
-
+async def health(agent: CyclingTripPlannerAgent = Depends(get_agent)) -> dict[str, str]:
+    """Health check endpoint with agent status verification."""
     try:
-        # Initialize ChatAnthropic model
-        model = ChatAnthropic(  # type: ignore[call-arg]
-            model_name="claude-sonnet-4-5",
-            api_key=SecretStr(api_key),
-        )
+        # Verify agent is initialized
+        if agent is None:
+            return {"status": "error", "message": "Agent not initialized"}
 
-        # Send a simple hello prompt
-        response = await model.ainvoke("Say hello and introduce yourself briefly.")
-        message_content = response.content if hasattr(response, "content") else str(response)
-        message_str = message_content if isinstance(message_content, str) else str(message_content)
+        # Check if API key is available (agent initialization requires it)
+        settings = get_settings()
+        api_key_available = settings.anthropic_api_key is not None
 
-        return {"message": message_str}
-
+        if api_key_available:
+            return {
+                "status": "ok",
+                "agent": "initialized",
+                "api_key": "available",
+            }
+        else:
+            return {
+                "status": "error",
+                "agent": "initialized",
+                "api_key": "not_available",
+            }
     except Exception as e:
-        logger.error(f"Error calling Anthropic API: {str(e)}")
-        raise HTTPException(
-            status_code=500,
-            detail=f"Error calling Anthropic API: {str(e)}",
-        ) from e
+        logger.error(f"Health check error: {str(e)}", exc_info=True)
+        return {
+            "status": "error",
+            "message": f"Health check failed: {str(e)}",
+        }
 
 
 @router.post("/chat", response_model=ChatResponse)
-async def chat(request: ChatRequest) -> ChatResponse:
+async def chat(
+    request: ChatRequest,
+    agent: CyclingTripPlannerAgent = Depends(get_agent),
+) -> ChatResponse:
     """Chat endpoint for cycling trip planning."""
     try:
         # Generate thread_id if not provided
         thread_id = request.thread_id or str(uuid.uuid4())
 
-        # Use module-level agent instance
+        # Use agent from dependency injection
         response_message = await agent.invoke(request.message, thread_id=thread_id)
 
         return ChatResponse(

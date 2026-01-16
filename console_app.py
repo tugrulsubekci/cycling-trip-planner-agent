@@ -2,26 +2,22 @@
 
 import asyncio
 import logging
-import os
 import sys
 
 import httpx
-from dotenv import load_dotenv
 from rich.console import Console
 from rich.markdown import Markdown
 from rich.panel import Panel
 from rich.prompt import Prompt
 from rich.text import Text
 
-# Load environment variables from .env file
-load_dotenv()
+from src.config import get_settings
+from src.constants import CHAT_ENDPOINT
+from src.logging_config import setup_logging
 
-# Configure logging
-logging.basicConfig(
-    level=logging.WARNING,  # Reduce console noise
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-    datefmt="%Y-%m-%d %H:%M:%S",
-)
+# Get settings and configure logging
+settings = get_settings()
+setup_logging(level=settings.console_log_level)
 
 logger: logging.Logger = logging.getLogger(__name__)
 
@@ -29,8 +25,8 @@ logger: logging.Logger = logging.getLogger(__name__)
 console = Console()
 
 # API Configuration
-API_URL = os.getenv("CHAT_API_URL") or os.getenv("API_URL") or "http://localhost:8000"
-CHAT_ENDPOINT = f"{API_URL}/chat"
+API_URL = settings.effective_api_url
+CHAT_ENDPOINT_URL = f"{API_URL}{CHAT_ENDPOINT}"
 
 
 def print_welcome() -> None:
@@ -77,9 +73,9 @@ async def send_chat_message(
     """
     try:
         response = await client.post(
-            CHAT_ENDPOINT,
+            CHAT_ENDPOINT_URL,
             json={"thread_id": thread_id, "message": message},
-            timeout=120.0,  # 2 minute timeout for long-running agent operations
+            timeout=settings.chat_timeout,
         )
         response.raise_for_status()
         data = response.json()
@@ -99,7 +95,7 @@ async def send_chat_message(
         raise httpx.HTTPStatusError(error_msg, request=e.request, response=e.response) from e
     except httpx.RequestError as e:
         raise httpx.RequestError(
-            f"Network error: Could not connect to API at {CHAT_ENDPOINT}. "
+            f"Network error: Could not connect to API at {CHAT_ENDPOINT_URL}. "
             f"Make sure the server is running. Error: {str(e)}",
             request=e.request,
         ) from e
@@ -118,7 +114,9 @@ async def main() -> None:
         # Test connection to API
         try:
             console.print(f"[dim]Connecting to API at {API_URL}...[/dim]")
-            health_response = await client.get(f"{API_URL}/health", timeout=5.0)
+            health_response = await client.get(
+                f"{API_URL}/health", timeout=settings.health_check_timeout
+            )
             health_response.raise_for_status()
             console.print("[green]✓ Connected to API[/green]\n")
         except httpx.RequestError as e:

@@ -7,6 +7,16 @@ from collections import defaultdict
 from langchain.tools import tool
 from pydantic import BaseModel, Field
 
+from src.constants import (
+    BIKE_MAINTENANCE_PER_KM,
+    CAMPING_PRICE,
+    CURRENCY_RATES,
+    DAILY_FOOD_COST,
+    DEFAULT_ACCOMMODATION_PRICE,
+    HOSTEL_PRICE,
+    HOTEL_PRICE,
+    MISCELLANEOUS_PER_DAY,
+)
 from src.data.mock_data import (
     find_accommodations,
     find_route_fuzzy,
@@ -15,20 +25,6 @@ from src.data.mock_data import (
 )
 
 logger: logging.Logger = logging.getLogger(__name__)
-
-# Currency exchange rates (simplified, for budget estimation)
-CURRENCY_RATES = {
-    "EUR": 1.0,
-    "USD": 1.1,  # 1 EUR = 1.1 USD
-    "GBP": 0.85,  # 1 EUR = 0.85 GBP
-    "DKK": 7.45,  # 1 EUR = 7.45 DKK
-    "CZK": 25.0,  # 1 EUR = 25.0 CZK
-}
-
-# Daily cost estimates (in EUR)
-DAILY_FOOD_COST = 40.0  # Average daily food cost
-BIKE_MAINTENANCE_PER_KM = 0.1  # Maintenance cost per km
-MISCELLANEOUS_PER_DAY = 15.0  # Miscellaneous expenses per day
 
 
 class EstimateBudgetInput(BaseModel):
@@ -273,15 +269,15 @@ def estimate_budget(
                     )
                 else:
                     # Estimate based on preference if no data
-                    estimated_price = 25.0  # Default EUR
+                    estimated_price = DEFAULT_ACCOMMODATION_PRICE
                     if accommodation_preference:
                         pref = accommodation_preference.lower()
                         if pref == "camping":
-                            estimated_price = 15.0
+                            estimated_price = CAMPING_PRICE
                         elif pref == "hostel":
-                            estimated_price = 25.0
+                            estimated_price = HOSTEL_PRICE
                         elif pref == "hotel":
-                            estimated_price = 80.0
+                            estimated_price = HOTEL_PRICE
                     total_cost = estimated_price * nights
                     accommodation_total_eur += total_cost
                     accommodation_by_currency["EUR"] += total_cost
@@ -297,15 +293,15 @@ def estimate_budget(
                     )
         else:
             # No waypoints or single waypoint - estimate based on total days
-            estimated_price = 25.0  # Default EUR
+            estimated_price = DEFAULT_ACCOMMODATION_PRICE
             if accommodation_preference:
                 pref = accommodation_preference.lower()
                 if pref == "camping":
-                    estimated_price = 15.0
+                    estimated_price = CAMPING_PRICE
                 elif pref == "hostel":
-                    estimated_price = 25.0
+                    estimated_price = HOSTEL_PRICE
                 elif pref == "hotel":
-                    estimated_price = 80.0
+                    estimated_price = HOTEL_PRICE
             accommodation_total_eur = estimated_price * estimated_days
             accommodation_by_currency["EUR"] = accommodation_total_eur
             accommodation_breakdown_items.append(

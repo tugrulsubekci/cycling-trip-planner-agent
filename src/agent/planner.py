@@ -1,7 +1,6 @@
 """Agent logic, prompts, and orchestration for Cycling Trip Planner."""
 
 import logging
-import os
 from collections.abc import Awaitable, Callable
 
 from langchain.agents import create_agent
@@ -14,8 +13,8 @@ from langchain_core.runnables.config import RunnableConfig
 from langgraph.checkpoint.memory import InMemorySaver
 from langgraph.pregel import Pregel
 from langgraph.types import Command
-from pydantic import SecretStr
 
+from src.config import get_settings
 from src.tools import ALL_TOOLS
 
 logger: logging.Logger = logging.getLogger(__name__)
@@ -110,13 +109,11 @@ class CyclingTripPlannerAgent:
     """Cycling Trip Planner Agent using LangChain."""
 
     def __init__(self) -> None:
-        api_key: str | None = os.getenv("ANTHROPIC_API_KEY")
-        if not api_key:
-            raise ValueError("ANTHROPIC_API_KEY environment variable is not set")
+        settings = get_settings()
 
         self.model = ChatAnthropic(  # type: ignore[call-arg]
-            model_name="claude-sonnet-4-5",
-            api_key=SecretStr(api_key),
+            model_name=settings.model_name,
+            api_key=settings.anthropic_api_key,
             temperature=0,
         )
         self.checkpointer = InMemorySaver()

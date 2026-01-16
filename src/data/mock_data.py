@@ -7,6 +7,8 @@ from typing import Any
 
 from rapidfuzz import fuzz
 
+from src.constants import SIMILARITY_THRESHOLD
+
 logger: logging.Logger = logging.getLogger(__name__)
 
 # Path to the mock routes JSON file
@@ -27,8 +29,7 @@ MOCK_POINTS_OF_INTEREST_PATH = Path(__file__).parent / "mock_points_of_interest.
 # Path to the mock visa requirements JSON file
 MOCK_VISA_PATH = Path(__file__).parent / "mock_visa.json"
 
-# Minimum similarity threshold for fuzzy matching (70%)
-SIMILARITY_THRESHOLD = 70
+# Note: SIMILARITY_THRESHOLD is imported from src.constants (see top of file)
 
 
 def normalize_location(location: str) -> str:
