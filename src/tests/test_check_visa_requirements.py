@@ -2,8 +2,6 @@
 
 from unittest.mock import patch
 
-import pytest
-
 from src.tools.check_visa_requirements import check_visa_requirements
 
 

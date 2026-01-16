@@ -1,6 +1,5 @@
 """Tests for calculate_accommodation_schedule tool."""
 
-import pytest
 
 from src.tools.calculate_accommodation_schedule import (
     calculate_accommodation_schedule,

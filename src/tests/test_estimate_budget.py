@@ -2,8 +2,6 @@
 
 from unittest.mock import patch
 
-import pytest
-
 from src.tools.estimate_budget import (
     convert_eur_to_usd,
     convert_to_eur,

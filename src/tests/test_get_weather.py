@@ -2,8 +2,6 @@
 
 from unittest.mock import patch
 
-import pytest
-
 from src.tools.get_weather import get_weather
 
 

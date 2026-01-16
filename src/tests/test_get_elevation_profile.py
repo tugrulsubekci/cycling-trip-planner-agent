@@ -2,8 +2,6 @@
 
 from unittest.mock import patch
 
-import pytest
-
 from src.tools.get_elevation_profile import (
     calculate_difficulty_rating,
     get_elevation_profile,

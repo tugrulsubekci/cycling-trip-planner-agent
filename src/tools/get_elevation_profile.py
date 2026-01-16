@@ -47,7 +47,9 @@ class RouteElevationOutput(BaseModel):
     min_elevation: float = Field(description="Minimum elevation in meters")
     min_elevation_waypoint: str = Field(description="Waypoint with minimum elevation")
     average_gradient_m_per_km: float = Field(description="Average gradient in meters per kilometer")
-    difficulty_rating: str = Field(description="Difficulty rating (Easy, Moderate, Hard, Very Hard)")
+    difficulty_rating: str = Field(
+        description="Difficulty rating (Easy, Moderate, Hard, Very Hard)"
+    )
     profile: list[ElevationWaypoint] = Field(description="Elevation profile with waypoints")
 
 
