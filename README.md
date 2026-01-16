@@ -67,6 +67,24 @@ The agent is configured with `temperature=0` to ensure deterministic, reproducib
 
 ## Architectural Decisions
 
+### RISEN Framework for System Prompt Design
+
+The agent's system prompt follows the **RISEN framework**, a structured prompt engineering methodology that transforms broad requests into precise, multi-part directives. RISEN expands on the RISE framework by adding a fifth element, making it:
+
+- **R = Role**: Defines the persona the AI should take—in this case, a cycling trip planning assistant specializing in multi-day trip orchestration
+- **I = Instructions**: Specifies what the agent should do—help users plan comprehensive cycling trips by understanding requirements and orchestrating specialized tools
+- **S = Steps**: Breaks down the task into a sequence of subtasks and decision points (e.g., when to use specific tools, how to handle day-by-day plans, periodic accommodation calculations)
+- **E = End Goal / Expectations**: Defines the desired outcome—accurate, data-driven trip plans that users can rely on for real-world travel
+- **N = Narrowing**: Sets constraints to prevent undesirable behavior—specifically, the agent must NEVER invent, estimate, or hallucinate distances, dates, or locations, and must always rely on tool outputs
+
+This structured approach ensures:
+- **Consistency**: The agent follows a predictable pattern in processing requests
+- **Accuracy**: Clear constraints prevent hallucination of critical information
+- **Reliability**: Well-defined steps guide tool selection and usage
+- **Maintainability**: The prompt structure makes it easier to update and refine behavior
+
+The system prompt in [`src/agent/planner.py`](src/agent/planner.py) is structured according to this framework, ensuring that the agent reliably delivers accurate, tool-based responses while maintaining a helpful conversational tone.
+
 ### Comprehensive Logging
 
 The application implements structured logging at INFO level throughout the agent lifecycle. Every tool call, agent decision, and error is logged with contextual information including timestamps, tool names, thread IDs, and message previews. This logging strategy enables:
