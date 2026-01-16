@@ -1,12 +1,6 @@
 # Cycling Trip Planner Agent
 
-An intelligent AI-powered agent that helps cyclists plan multi-day trips by orchestrating route planning, accommodation booking, weather analysis, budget estimation, and travel logistics. Built with LangChain and Claude Sonnet 4.5, this agent combines multiple specialized tools to deliver comprehensive trip planning assistance through natural language conversations.
-
-## Overview
-
-Planning a cycling trip involves juggling multiple complex factors: route distances, elevation profiles, accommodation availability, weather conditions, visa requirements, and budget constraints. This agent automates the orchestration of these tasks, allowing users to simply describe their trip goals and receive a detailed, actionable plan.
-
-The system uses a sophisticated agent architecture that intelligently selects and chains together specialized tools based on user queries, ensuring accurate, data-driven responses while preventing hallucination of critical information like distances, dates, or locations.
+An intelligent AI-powered agent that helps cyclists plan multi-day trips by orchestrating route planning, accommodation booking, weather analysis, budget estimation, and travel logistics.
 
 ## Agent Tools
 
@@ -25,8 +19,6 @@ The agent has access to eight specialized tools, each designed to handle a speci
 
 ### Core Framework & Libraries
 
-- **FastAPI**: Modern, high-performance web framework chosen for its automatic API documentation, async support, and type hints integration
-- **Uvicorn**: ASGI server selected for its performance and compatibility with FastAPI's async capabilities
 - **LangChain**: Framework chosen for its robust agent orchestration, tool integration, and message handling capabilities
 - **LangChain Anthropic**: Official integration library providing seamless connection to Anthropic's Claude models
 - **LangGraph**: Graph-based agent framework selected for managing complex agent workflows and state persistence
@@ -200,20 +192,6 @@ python console_app.py
 
 ## API Endpoints
 
-### Root Endpoint
-
-- **URL**: `/`
-- **Method**: `GET`
-- **Description**: Returns a hello world message
-- **Response**: `{"message": "Hello World"}`
-
-### Health Check
-
-- **URL**: `/health`
-- **Method**: `GET`
-- **Description**: Health check endpoint with agent status verification
-- **Response**: `{"status": "ok", "agent": "initialized", "api_key": "available"}`
-
 ### Chat Endpoint
 
 - **URL**: `/chat`
@@ -284,10 +262,14 @@ cycling-trip-planner-agent/
 ├── pyproject.toml              # Project configuration (Ruff, Mypy)
 ├── src/
 │   ├── agent/
+│   │   ├── __init__.py
 │   │   └── planner.py          # Agent logic and orchestration
 │   ├── api/
+│   │   ├── __init__.py
 │   │   └── routes.py           # FastAPI route definitions
 │   ├── tools/                  # Agent tools (8 tools)
+│   │   ├── __init__.py
+│   │   ├── base.py
 │   │   ├── get_route.py
 │   │   ├── find_accommodation.py
 │   │   ├── calculate_accommodation_schedule.py
@@ -297,18 +279,31 @@ cycling-trip-planner-agent/
 │   │   ├── check_visa_requirements.py
 │   │   └── estimate_budget.py
 │   ├── data/                   # Mock data and data loading
+│   │   ├── __init__.py
+│   │   ├── mock_data.py
+│   │   ├── mock_routes.json
+│   │   ├── mock_accommodations.json
+│   │   ├── mock_weather.json
+│   │   ├── mock_elevation.json
+│   │   ├── mock_points_of_interest.json
+│   │   └── mock_visa.json
 │   ├── tests/                  # Test suite
+│   │   ├── __init__.py
+│   │   ├── conftest.py
+│   │   ├── test_get_route.py
+│   │   ├── test_find_accommodation.py
+│   │   ├── test_calculate_accommodation_schedule.py
+│   │   ├── test_get_weather.py
+│   │   ├── test_get_elevation_profile.py
+│   │   ├── test_get_points_of_interest.py
+│   │   ├── test_check_visa_requirements.py
+│   │   └── test_estimate_budget.py
 │   ├── config.py               # Configuration management
 │   ├── logging_config.py       # Logging setup
-│   └── constants.py            # Application constants
+│   ├── constants.py            # Application constants
+│   └── __init__.py
 └── README.md                   # This file
 ```
-
-## Requirements
-
-- Python 3.10 or higher
-- Virtual environment (recommended)
-- Anthropic API key (set in `.env` file)
 
 ## Future Development
 
@@ -337,6 +332,10 @@ Implement streaming responses to provide real-time feedback about tool usage and
 - Real-time tool execution notifications
 - Step-by-step reasoning display
 - Better perceived performance and user engagement
+
+### Tool Calling Cache
+
+Implement caching mechanism for tool calls to improve performance and reduce redundant API calls. Tools called with the same input can directly return results from cache, eliminating unnecessary computations and external API requests.
 
 ## Notes
 
